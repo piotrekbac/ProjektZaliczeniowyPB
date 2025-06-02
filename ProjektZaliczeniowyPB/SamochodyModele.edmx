@@ -1,0 +1,448 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProjektZaliczeniowyBazaSamochodowModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Klienci">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nazwisko" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ulica" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumerBudynku" Type="nvarchar" MaxLength="10" />
+          <Property Name="KodPocztowy" Type="nvarchar" MaxLength="10" />
+          <Property Name="Miejscowosc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="70" />
+          <Property Name="NumerTelefonu" Type="char" MaxLength="9" />
+        </EntityType>
+        <EntityType Name="Polisy">
+          <Key>
+            <PropertyRef Name="PolisaID" />
+          </Key>
+          <Property Name="PolisaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ZakupID" Type="int" Nullable="false" />
+          <Property Name="DataRozpoczecia" Type="date" Nullable="false" />
+          <Property Name="DataZakonczenia" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pracownicy">
+          <Key>
+            <PropertyRef Name="PracownikID" />
+          </Key>
+          <Property Name="PracownikID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Imie" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Nazwisko" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ulica" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumerBudynku" Type="nvarchar" MaxLength="10" />
+          <Property Name="KodPocztowy" Type="nvarchar" MaxLength="10" />
+          <Property Name="Miejscowosc" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="70" />
+        </EntityType>
+        <EntityType Name="PracownicyWydzialy">
+          <Key>
+            <PropertyRef Name="PracownikID" />
+            <PropertyRef Name="WydzialID" />
+          </Key>
+          <Property Name="PracownikID" Type="int" Nullable="false" />
+          <Property Name="WydzialID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Samochody">
+          <Key>
+            <PropertyRef Name="SamochodID" />
+          </Key>
+          <Property Name="SamochodID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Model" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RokProdukcji" Type="int" Nullable="false" />
+          <Property Name="NumerSeryjny" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="WersjaWyposazenia" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Wydzialy">
+          <Key>
+            <PropertyRef Name="WydzialID" />
+          </Key>
+          <Property Name="WydzialID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nazwa" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakupy">
+          <Key>
+            <PropertyRef Name="ZakupID" />
+          </Key>
+          <Property Name="ZakupID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DataZakupu" Type="date" Nullable="false" />
+          <Property Name="KlientID" Type="int" Nullable="false" />
+          <Property Name="PracownikID" Type="int" Nullable="false" />
+          <Property Name="SamochodID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Polisy__ZakupID__47DBAE45">
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="1" />
+          <End Role="Polisy" Type="Self.Polisy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakupy">
+              <PropertyRef Name="ZakupID" />
+            </Principal>
+            <Dependent Role="Polisy">
+              <PropertyRef Name="ZakupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pracownic__Praco__4D94879B">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="1" />
+          <End Role="PracownicyWydzialy" Type="Self.PracownicyWydzialy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pracownicy">
+              <PropertyRef Name="PracownikID" />
+            </Principal>
+            <Dependent Role="PracownicyWydzialy">
+              <PropertyRef Name="PracownikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pracownic__Wydzi__4E88ABD4">
+          <End Role="Wydzialy" Type="Self.Wydzialy" Multiplicity="1" />
+          <End Role="PracownicyWydzialy" Type="Self.PracownicyWydzialy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Wydzialy">
+              <PropertyRef Name="WydzialID" />
+            </Principal>
+            <Dependent Role="PracownicyWydzialy">
+              <PropertyRef Name="WydzialID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakupy__KlientID__4316F928">
+          <End Role="Klienci" Type="Self.Klienci" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klienci">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakupy__Pracowni__440B1D61">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pracownicy">
+              <PropertyRef Name="PracownikID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="PracownikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakupy__Samochod__44FF419A">
+          <End Role="Samochody" Type="Self.Samochody" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Samochody">
+              <PropertyRef Name="SamochodID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="SamochodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProjektZaliczeniowyBazaSamochodowModelStoreContainer">
+          <EntitySet Name="Klienci" EntityType="Self.Klienci" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Polisy" EntityType="Self.Polisy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pracownicy" EntityType="Self.Pracownicy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PracownicyWydzialy" EntityType="Self.PracownicyWydzialy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Samochody" EntityType="Self.Samochody" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Wydzialy" EntityType="Self.Wydzialy" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakupy" EntityType="Self.Zakupy" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Polisy__ZakupID__47DBAE45" Association="Self.FK__Polisy__ZakupID__47DBAE45">
+            <End Role="Zakupy" EntitySet="Zakupy" />
+            <End Role="Polisy" EntitySet="Polisy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pracownic__Praco__4D94879B" Association="Self.FK__Pracownic__Praco__4D94879B">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="PracownicyWydzialy" EntitySet="PracownicyWydzialy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pracownic__Wydzi__4E88ABD4" Association="Self.FK__Pracownic__Wydzi__4E88ABD4">
+            <End Role="Wydzialy" EntitySet="Wydzialy" />
+            <End Role="PracownicyWydzialy" EntitySet="PracownicyWydzialy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakupy__KlientID__4316F928" Association="Self.FK__Zakupy__KlientID__4316F928">
+            <End Role="Klienci" EntitySet="Klienci" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakupy__Pracowni__440B1D61" Association="Self.FK__Zakupy__Pracowni__440B1D61">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakupy__Samochod__44FF419A" Association="Self.FK__Zakupy__Samochod__44FF419A">
+            <End Role="Samochody" EntitySet="Samochody" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProjektZaliczeniowyBazaSamochodowModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Klienci">
+          <Key>
+            <PropertyRef Name="KlientID" />
+          </Key>
+          <Property Name="KlientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ulica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumerBudynku" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="KodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Miejscowosc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <Property Name="NumerTelefonu" Type="String" MaxLength="9" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Zakupy" Relationship="Self.FK__Zakupy__KlientID__4316F928" FromRole="Klienci" ToRole="Zakupy" />
+        </EntityType>
+        <EntityType Name="Polisy">
+          <Key>
+            <PropertyRef Name="PolisaID" />
+          </Key>
+          <Property Name="PolisaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ZakupID" Type="Int32" Nullable="false" />
+          <Property Name="DataRozpoczecia" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DataZakonczenia" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Zakupy" Relationship="Self.FK__Polisy__ZakupID__47DBAE45" FromRole="Polisy" ToRole="Zakupy" />
+        </EntityType>
+        <EntityType Name="Pracownicy">
+          <Key>
+            <PropertyRef Name="PracownikID" />
+          </Key>
+          <Property Name="PracownikID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Imie" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Nazwisko" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Ulica" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumerBudynku" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="KodPocztowy" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Miejscowosc" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Zakupy" Relationship="Self.FK__Zakupy__Pracowni__440B1D61" FromRole="Pracownicy" ToRole="Zakupy" />
+          <NavigationProperty Name="Wydzialy" Relationship="Self.PracownicyWydzialy" FromRole="Pracownicy" ToRole="Wydzialy" />
+        </EntityType>
+        <EntityType Name="Samochody">
+          <Key>
+            <PropertyRef Name="SamochodID" />
+          </Key>
+          <Property Name="SamochodID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Model" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="RokProdukcji" Type="Int32" Nullable="false" />
+          <Property Name="NumerSeryjny" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="WersjaWyposazenia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Zakupy" Relationship="Self.FK__Zakupy__Samochod__44FF419A" FromRole="Samochody" ToRole="Zakupy" />
+        </EntityType>
+        <EntityType Name="Wydzialy">
+          <Key>
+            <PropertyRef Name="WydzialID" />
+          </Key>
+          <Property Name="WydzialID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nazwa" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Pracownicy" Relationship="Self.PracownicyWydzialy" FromRole="Wydzialy" ToRole="Pracownicy" />
+        </EntityType>
+        <EntityType Name="Zakupy">
+          <Key>
+            <PropertyRef Name="ZakupID" />
+          </Key>
+          <Property Name="ZakupID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DataZakupu" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="KlientID" Type="Int32" Nullable="false" />
+          <Property Name="PracownikID" Type="Int32" Nullable="false" />
+          <Property Name="SamochodID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Klienci" Relationship="Self.FK__Zakupy__KlientID__4316F928" FromRole="Zakupy" ToRole="Klienci" />
+          <NavigationProperty Name="Polisy" Relationship="Self.FK__Polisy__ZakupID__47DBAE45" FromRole="Zakupy" ToRole="Polisy" />
+          <NavigationProperty Name="Pracownicy" Relationship="Self.FK__Zakupy__Pracowni__440B1D61" FromRole="Zakupy" ToRole="Pracownicy" />
+          <NavigationProperty Name="Samochody" Relationship="Self.FK__Zakupy__Samochod__44FF419A" FromRole="Zakupy" ToRole="Samochody" />
+        </EntityType>
+        <Association Name="FK__Zakupy__KlientID__4316F928">
+          <End Role="Klienci" Type="Self.Klienci" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Klienci">
+              <PropertyRef Name="KlientID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="KlientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Polisy__ZakupID__47DBAE45">
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="1" />
+          <End Role="Polisy" Type="Self.Polisy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Zakupy">
+              <PropertyRef Name="ZakupID" />
+            </Principal>
+            <Dependent Role="Polisy">
+              <PropertyRef Name="ZakupID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakupy__Pracowni__440B1D61">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pracownicy">
+              <PropertyRef Name="PracownikID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="PracownikID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Zakupy__Samochod__44FF419A">
+          <End Role="Samochody" Type="Self.Samochody" Multiplicity="1" />
+          <End Role="Zakupy" Type="Self.Zakupy" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Samochody">
+              <PropertyRef Name="SamochodID" />
+            </Principal>
+            <Dependent Role="Zakupy">
+              <PropertyRef Name="SamochodID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PracownicyWydzialy">
+          <End Role="Pracownicy" Type="Self.Pracownicy" Multiplicity="*" />
+          <End Role="Wydzialy" Type="Self.Wydzialy" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ProjektZaliczeniowyBazaSamochodowEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Klienci" EntityType="Self.Klienci" />
+          <EntitySet Name="Polisy" EntityType="Self.Polisy" />
+          <EntitySet Name="Pracownicy" EntityType="Self.Pracownicy" />
+          <EntitySet Name="Samochody" EntityType="Self.Samochody" />
+          <EntitySet Name="Wydzialy" EntityType="Self.Wydzialy" />
+          <EntitySet Name="Zakupy" EntityType="Self.Zakupy" />
+          <AssociationSet Name="FK__Zakupy__KlientID__4316F928" Association="Self.FK__Zakupy__KlientID__4316F928">
+            <End Role="Klienci" EntitySet="Klienci" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Polisy__ZakupID__47DBAE45" Association="Self.FK__Polisy__ZakupID__47DBAE45">
+            <End Role="Zakupy" EntitySet="Zakupy" />
+            <End Role="Polisy" EntitySet="Polisy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakupy__Pracowni__440B1D61" Association="Self.FK__Zakupy__Pracowni__440B1D61">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Zakupy__Samochod__44FF419A" Association="Self.FK__Zakupy__Samochod__44FF419A">
+            <End Role="Samochody" EntitySet="Samochody" />
+            <End Role="Zakupy" EntitySet="Zakupy" />
+          </AssociationSet>
+          <AssociationSet Name="PracownicyWydzialy" Association="Self.PracownicyWydzialy">
+            <End Role="Pracownicy" EntitySet="Pracownicy" />
+            <End Role="Wydzialy" EntitySet="Wydzialy" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjektZaliczeniowyBazaSamochodowModelStoreContainer" CdmEntityContainer="ProjektZaliczeniowyBazaSamochodowEntities">
+          <EntitySetMapping Name="Klienci">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Klienci">
+              <MappingFragment StoreEntitySet="Klienci">
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Ulica" ColumnName="Ulica" />
+                <ScalarProperty Name="NumerBudynku" ColumnName="NumerBudynku" />
+                <ScalarProperty Name="KodPocztowy" ColumnName="KodPocztowy" />
+                <ScalarProperty Name="Miejscowosc" ColumnName="Miejscowosc" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="NumerTelefonu" ColumnName="NumerTelefonu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Polisy">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Polisy">
+              <MappingFragment StoreEntitySet="Polisy">
+                <ScalarProperty Name="PolisaID" ColumnName="PolisaID" />
+                <ScalarProperty Name="ZakupID" ColumnName="ZakupID" />
+                <ScalarProperty Name="DataRozpoczecia" ColumnName="DataRozpoczecia" />
+                <ScalarProperty Name="DataZakonczenia" ColumnName="DataZakonczenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pracownicy">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Pracownicy">
+              <MappingFragment StoreEntitySet="Pracownicy">
+                <ScalarProperty Name="PracownikID" ColumnName="PracownikID" />
+                <ScalarProperty Name="Imie" ColumnName="Imie" />
+                <ScalarProperty Name="Nazwisko" ColumnName="Nazwisko" />
+                <ScalarProperty Name="Ulica" ColumnName="Ulica" />
+                <ScalarProperty Name="NumerBudynku" ColumnName="NumerBudynku" />
+                <ScalarProperty Name="KodPocztowy" ColumnName="KodPocztowy" />
+                <ScalarProperty Name="Miejscowosc" ColumnName="Miejscowosc" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Samochody">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Samochody">
+              <MappingFragment StoreEntitySet="Samochody">
+                <ScalarProperty Name="SamochodID" ColumnName="SamochodID" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="RokProdukcji" ColumnName="RokProdukcji" />
+                <ScalarProperty Name="NumerSeryjny" ColumnName="NumerSeryjny" />
+                <ScalarProperty Name="WersjaWyposazenia" ColumnName="WersjaWyposazenia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Wydzialy">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Wydzialy">
+              <MappingFragment StoreEntitySet="Wydzialy">
+                <ScalarProperty Name="WydzialID" ColumnName="WydzialID" />
+                <ScalarProperty Name="Nazwa" ColumnName="Nazwa" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakupy">
+            <EntityTypeMapping TypeName="ProjektZaliczeniowyBazaSamochodowModel.Zakupy">
+              <MappingFragment StoreEntitySet="Zakupy">
+                <ScalarProperty Name="ZakupID" ColumnName="ZakupID" />
+                <ScalarProperty Name="DataZakupu" ColumnName="DataZakupu" />
+                <ScalarProperty Name="KlientID" ColumnName="KlientID" />
+                <ScalarProperty Name="PracownikID" ColumnName="PracownikID" />
+                <ScalarProperty Name="SamochodID" ColumnName="SamochodID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PracownicyWydzialy" TypeName="ProjektZaliczeniowyBazaSamochodowModel.PracownicyWydzialy" StoreEntitySet="PracownicyWydzialy">
+            <EndProperty Name="Pracownicy">
+              <ScalarProperty Name="PracownikID" ColumnName="PracownikID" />
+            </EndProperty>
+            <EndProperty Name="Wydzialy">
+              <ScalarProperty Name="WydzialID" ColumnName="WydzialID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
