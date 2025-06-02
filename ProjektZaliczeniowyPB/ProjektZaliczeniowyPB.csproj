@@ -70,6 +70,9 @@
     <Compile Include="Klienci.cs">
       <DependentUpon>SamochodyModele.tt</DependentUpon>
     </Compile>
+    <Compile Include="KlienciWindow.xaml.cs">
+      <DependentUpon>KlienciWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Polisy.cs">
       <DependentUpon>SamochodyModele.tt</DependentUpon>
     </Compile>
@@ -100,6 +103,10 @@
     <Compile Include="Zakupy.cs">
       <DependentUpon>SamochodyModele.tt</DependentUpon>
     </Compile>
+    <Page Include="KlienciWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
