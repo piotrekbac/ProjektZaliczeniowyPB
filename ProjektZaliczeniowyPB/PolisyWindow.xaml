@@ -12,7 +12,17 @@
         </Grid.RowDefinitions>
 
         <!-- Wyświetlanie listy polis -->
-        <DataGrid Name="dgPolisy" AutoGenerateColumns="True" IsReadOnly="True" Grid.Row="0" Margin="0,0,0,10"/>
+        <DataGrid Name="dgPolisy" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="0" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID polisy" Binding="{Binding PolisaID}" Width="80"/>
+                <DataGridTextColumn Header="ID zakupu" Binding="{Binding ZakupID}" Width="80"/>
+                <DataGridTextColumn Header="Data rozpoczęcia" Binding="{Binding DataRozpoczecia, StringFormat=d}" Width="150"/>
+                <DataGridTextColumn Header="Data zakończenia" Binding="{Binding DataZakonczenia, StringFormat=d}" Width="150"/>
+                <!-- Jeżeli chcesz pokazać np. klienta z zakupu -->
+                <DataGridTextColumn Header="Klient" Binding="{Binding Zakupy.Klienci.Nazwisko}" Width="150"/>
+                <DataGridTextColumn Header="Samochód" Binding="{Binding Zakupy.Samochody.Model}" Width="150"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <!-- Panel sterujący -->
         <StackPanel Grid.Row="1">

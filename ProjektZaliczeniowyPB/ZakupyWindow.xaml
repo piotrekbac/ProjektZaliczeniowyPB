@@ -9,7 +9,15 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <DataGrid Name="dgZakupy" AutoGenerateColumns="True" IsReadOnly="True" Grid.Row="0" Margin="0,0,0,10"/>
+        <DataGrid Name="dgZakupy" AutoGenerateColumns="False" IsReadOnly="True" Grid.Row="0" Margin="0,0,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ZakupID}" Width="50"/>
+                <DataGridTextColumn Header="Klient" Binding="{Binding Klienci.Nazwisko}" Width="150"/>
+                <DataGridTextColumn Header="Pracownik" Binding="{Binding Pracownicy.Nazwisko}" Width="150"/>
+                <DataGridTextColumn Header="Samochód" Binding="{Binding Samochody.Model}" Width="150"/>
+                <DataGridTextColumn Header="Data Zakupu" Binding="{Binding DataZakupu, StringFormat=d}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <StackPanel Grid.Row="1">
             <WrapPanel Margin="0,0,0,10">
