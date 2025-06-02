@@ -148,7 +148,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ProjektZaliczeniowyBazaSamochodow">
+        <EntityContainer Name="ProjektZaliczeniowyBazaSamochodowModelStoreContainer">
           <EntitySet Name="Klienci" EntityType="Self.Klienci" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Polisy" EntityType="Self.Polisy" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pracownicy" EntityType="Self.Pracownicy" Schema="dbo" store:Type="Tables" />

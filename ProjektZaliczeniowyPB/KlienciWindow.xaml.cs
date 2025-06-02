@@ -41,6 +41,12 @@ namespace ProjektZaliczeniowyPB
             dgKlienci.ItemsSource = db.Klienci.ToList();
         }
 
+        private void dgKlienci_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // TODO: obsługa zaznaczenia klienta
+        }
+
+
         //Obsługa kliknięcia przycisku "Dodaj"
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
