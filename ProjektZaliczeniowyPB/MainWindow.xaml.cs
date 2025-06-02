@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//Piotr Bacior - 15 722 WSEI Kraków
+
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>
@@ -20,9 +22,21 @@ namespace ProjektZaliczeniowyPB
     /// </summary>
     public partial class MainWindow : Window
     {
+        //Definiujemy konstruktor klasy MainWindow, który jest wywoływany podczas tworzenia obiektu tej klasy, czyli przy uruchomieniu głównego okna aplikacji 
         public MainWindow()
         {
+            //Inicjalizujemy wszystkie komponenty graficzne, zdefiniowane w pliku XAML, dla tego okna
             InitializeComponent();
+        }
+
+        //Teraz przechodzimy do obsługi zdarzeń, czyli metod, które będą wywoływane w odpowiedzi na interakcje użytkownika z interfejsem graficznym
+        private void BtnKlienci_Click(object sender, RoutedEventArgs e)
+        {
+            //Tworzy nowe okno do zarządzania klientami
+            KlienciWindow okno = new KlienciWindow();
+
+            //Wyświetlamy okno w trybie modalnym, czyli blokujemy interakcję z głównym oknem, dopóki to okno nie zostanie zamknięte
+            okno.ShowDialog();
         }
     }
 }
