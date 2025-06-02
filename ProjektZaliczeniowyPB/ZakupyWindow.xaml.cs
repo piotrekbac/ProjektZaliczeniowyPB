@@ -2,6 +2,8 @@
 using System.Linq;
 using System.Windows;
 
+//Piotr Bacior - 15 722 WSEI Kraków
+
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>

@@ -103,6 +103,9 @@
     <Compile Include="Samochody.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="SamochodyWindow.xaml.cs">
+      <DependentUpon>SamochodyWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wydzialy.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -133,6 +136,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="PracownicyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SamochodyWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

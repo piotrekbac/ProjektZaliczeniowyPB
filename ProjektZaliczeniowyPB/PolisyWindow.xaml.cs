@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+//Piotr Bacior - 15 722 WSEI Kraków
+
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>
