@@ -1,35 +1,60 @@
 ﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
-
-<!-- Okno do zarządzania klientami w aplikacji ProjektZaliczeniowyPB -->
 <Window x:Class="ProjektZaliczeniowyPB.KlienciWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zarządzanie Klientami" Height="400" Width="700">
-    <!-- Grid definiuje główny układ okna z marginesem 10 pikseli -->
+        Title="Zarządzanie Klientami" Height="550" Width="1000">
     <Grid Margin="10">
-        <!-- Podział siatki na dwie wiersze: górny (3 części) i dolny (2 części) -->
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- DataGrid służy do wyświetlania listy klientów w formie tabeli -->
+        <!-- Tabela z klientami -->
         <DataGrid Name="dgKlienci" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single"
                   Grid.Row="0" Margin="0,0,0,10" SelectionChanged="dgKlienci_SelectionChanged"/>
 
-        <!-- Dolny panel ze sterowaniem do dodawania, edycji i usuwania klientów -->
+        <!-- Panel dolny -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <!-- Pierwszy poziomy StackPanel: pola tekstowe do wprowadzania danych klienta -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <!-- Zamiast PlaceholderText możesz opcjonalnie dodać Text jako podpowiedź,
-                     albo zostawić puste pole i opisać je etykietą obok, np. Label -->
-                <TextBox Name="txtImie" Width="100" Margin="5"/>
-                <TextBox Name="txtNazwisko" Width="100" Margin="5"/>
-                <TextBox Name="txtEmail" Width="150" Margin="5"/>
-                <TextBox Name="txtTelefon" Width="100" Margin="5"/>
-            </StackPanel>
-            <!-- Drugi poziomy StackPanel: przyciski do obsługi operacji na klientach -->
-            <StackPanel Orientation="Horizontal">
+
+            <!-- Pola danych klienta -->
+            <WrapPanel Margin="0,0,0,5">
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Imię:"/>
+                    <TextBox Name="txtImie"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Nazwisko:"/>
+                    <TextBox Name="txtNazwisko"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="180">
+                    <Label Content="Email:"/>
+                    <TextBox Name="txtEmail"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Telefon:"/>
+                    <TextBox Name="txtTelefon"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Nr budynku:"/>
+                    <TextBox Name="txtNumerBudynku"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Kod pocztowy:"/>
+                    <TextBox Name="txtKodPocztowy"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Miejscowość:"/>
+                    <TextBox Name="txtMiejscowosc"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Zakupy:"/>
+                    <TextBox Name="txtZakupy"/>
+                </StackPanel>
+            </WrapPanel>
+
+
+            <!-- Przyciskowe akcje -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
                 <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>

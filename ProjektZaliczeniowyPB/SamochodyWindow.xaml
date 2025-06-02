@@ -1,33 +1,37 @@
 ﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
-
-<!-- Okno do zarządzania samochodami w aplikacji ProjektZaliczeniowyPB -->
 <Window x:Class="ProjektZaliczeniowyPB.SamochodyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zarządzanie Samochodami" Height="400" Width="750">
-    <!-- Główna siatka z marginesem -->
+        Title="Zarządzanie Samochodami" Height="450" Width="800">
     <Grid Margin="10">
-        <!-- Podział siatki na dwie sekcje -->
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- Tabela z listą samochodów -->
         <DataGrid Name="dgSamochody" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single"
                   Grid.Row="0" Margin="0,0,0,10"/>
 
-        <!-- Panel z polami do edycji oraz przyciskami -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <!-- Pola wejściowe: Model, Rok, Numer Seryjny, Wersja Wyposażenia -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBox Name="txtModel" Width="150" Margin="5"/>
-                <TextBox Name="txtRokProdukcji" Width="100" Margin="5"/>
-                <TextBox Name="txtNumerSeryjny" Width="150" Margin="5"/>
-                <TextBox Name="txtWersja" Width="150" Margin="5"/>
-            </StackPanel>
+            <WrapPanel Margin="0,0,0,10">
+                <StackPanel Margin="5" Width="150">
+                    <Label Content="Model:"/>
+                    <TextBox Name="txtModel"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="100">
+                    <Label Content="Rok produkcji:"/>
+                    <TextBox Name="txtRokProdukcji"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="150">
+                    <Label Content="Numer seryjny:"/>
+                    <TextBox Name="txtNumerSeryjny"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="150">
+                    <Label Content="Wersja wyposażenia:"/>
+                    <TextBox Name="txtWersja"/>
+                </StackPanel>
+            </WrapPanel>
 
-            <!-- Przyciski operacyjne -->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>

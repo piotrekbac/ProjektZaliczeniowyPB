@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-//Piotr Bacior - 15 722 WSEI Kraków
 
 namespace ProjektZaliczeniowyPB
 {
@@ -21,110 +10,148 @@ namespace ProjektZaliczeniowyPB
     /// </summary>
     public partial class KlienciWindow : Window
     {
-        //Tworzymy obiekt bazy danych, dzięki któremu mamy dostęp do tabel oraz operacji na bazie
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
-
-        //Zmienna do przechowywania aktualnie wybranego klienta
         private Klienci wybranyKlient;
 
-        //Konstruktor okna - wywołuje się przy otwarciu tego okna
         public KlienciWindow()
         {
-            InitializeComponent(); //Inicjalizuje wszystkie elementy graficzne zdefiniowane w pliku XAML
-            WczytajDane();         //Ładuje dane klientów do tabeli przy starcie okna
+            InitializeComponent();
+            WczytajDane();
         }
 
-        //Metoda do pobierania i wyświetlania wszystkich klientów w DataGrid
         private void WczytajDane()
         {
-            //Przypisuje listę klientów z bazy jako źródło danych do DataGrid (dgKlienci)
             dgKlienci.ItemsSource = db.Klienci.ToList();
         }
 
         private void dgKlienci_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // TODO: obsługa zaznaczenia klienta
+            if (dgKlienci.SelectedItem is Klienci k)
+            {
+                txtImie.Text = k.Imie;
+                txtNazwisko.Text = k.Nazwisko;
+                txtEmail.Text = k.Email;
+                txtTelefon.Text = k.NumerTelefonu;
+                txtNumerBudynku.Text = k.NumerBudynku;
+                txtKodPocztowy.Text = k.KodPocztowy;
+                txtMiejscowosc.Text = k.Miejscowosc;
+            }
         }
 
-
-        //Obsługa kliknięcia przycisku "Dodaj"
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
-            //Sprawdzamy czy pola Imię i Nazwisko nie są puste (wymagane dane)
-            if (!string.IsNullOrWhiteSpace(txtImie.Text) && !string.IsNullOrWhiteSpace(txtNazwisko.Text))
+            if (string.IsNullOrWhiteSpace(txtImie.Text) || string.IsNullOrWhiteSpace(txtNazwisko.Text)
+                || string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtTelefon.Text))
             {
-                //Tworzymy nowy obiekt klienta na podstawie danych z pól tekstowych
+                MessageBox.Show("Imię, nazwisko, email i numer telefonu są wymagane.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (txtTelefon.Text.Length != 9 || !txtTelefon.Text.All(char.IsDigit))
+            {
+                MessageBox.Show("Numer telefonu musi zawierać dokładnie 9 cyfr.", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
+            {
                 var nowy = new Klienci
                 {
                     Imie = txtImie.Text,
                     Nazwisko = txtNazwisko.Text,
                     Email = txtEmail.Text,
-                    NumerTelefonu = txtTelefon.Text
+                    NumerTelefonu = txtTelefon.Text,
+                    NumerBudynku = txtNumerBudynku.Text,
+                    KodPocztowy = txtKodPocztowy.Text,
+                    Miejscowosc = txtMiejscowosc.Text
                 };
 
-                //Dodajemy nowego klienta do bazy i zapisujemy zmiany
                 db.Klienci.Add(nowy);
                 db.SaveChanges();
-
-                //Odświeżamy listę klientów i czyścimy pola tekstowe po dodaniu
                 WczytajDane();
                 CzyscPola();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas dodawania klienta:\n" + (ex.InnerException?.InnerException?.Message ?? ex.Message),
+                                "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        //Obsługa kliknięcia przycisku "Edytuj"
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
-            //Sprawdzamy czy jakiś klient został wybrany w tabeli
             if (dgKlienci.SelectedItem is Klienci k)
             {
-                //Pobieramy klienta z bazy po ID i aktualizujemy jego dane na podstawie pól tekstowych
-                wybranyKlient = db.Klienci.Find(k.KlientID);
-                wybranyKlient.Imie = txtImie.Text;
-                wybranyKlient.Nazwisko = txtNazwisko.Text;
-                wybranyKlient.Email = txtEmail.Text;
-                wybranyKlient.NumerTelefonu = txtTelefon.Text;
+                if (string.IsNullOrWhiteSpace(txtImie.Text) || string.IsNullOrWhiteSpace(txtNazwisko.Text)
+                    || string.IsNullOrWhiteSpace(txtEmail.Text) || string.IsNullOrWhiteSpace(txtTelefon.Text))
+                {
+                    MessageBox.Show("Imię, nazwisko, email i numer telefonu są wymagane.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-                //Zapisujemy zmiany w bazie
-                db.SaveChanges();
+                if (txtTelefon.Text.Length != 9 || !txtTelefon.Text.All(char.IsDigit))
+                {
+                    MessageBox.Show("Numer telefonu musi zawierać dokładnie 9 cyfr.", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-                //Odświeżamy widok oraz czyścimy pola
-                WczytajDane();
-                CzyscPola();
+                try
+                {
+                    wybranyKlient = db.Klienci.Find(k.KlientID);
+                    wybranyKlient.Imie = txtImie.Text;
+                    wybranyKlient.Nazwisko = txtNazwisko.Text;
+                    wybranyKlient.Email = txtEmail.Text;
+                    wybranyKlient.NumerTelefonu = txtTelefon.Text;
+                    wybranyKlient.NumerBudynku = txtNumerBudynku.Text;
+                    wybranyKlient.KodPocztowy = txtKodPocztowy.Text;
+                    wybranyKlient.Miejscowosc = txtMiejscowosc.Text;
+
+                    db.SaveChanges();
+                    WczytajDane();
+                    CzyscPola();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas edycji klienta:\n" + (ex.InnerException?.InnerException?.Message ?? ex.Message),
+                                    "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        //Obsługa kliknięcia przycisku "Usuń"
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
-            //Sprawdzamy czy jest wybrany klient do usunięcia
             if (dgKlienci.SelectedItem is Klienci k)
             {
-                //Szukamy klienta po ID, usuwamy go z bazy i zapisujemy zmiany
-                var doUsuniecia = db.Klienci.Find(k.KlientID);
-                db.Klienci.Remove(doUsuniecia);
-                db.SaveChanges();
-
-                //Odświeżamy listę oraz czyścimy pola
-                WczytajDane();
-                CzyscPola();
+                try
+                {
+                    var doUsuniecia = db.Klienci.Find(k.KlientID);
+                    db.Klienci.Remove(doUsuniecia);
+                    db.SaveChanges();
+                    WczytajDane();
+                    CzyscPola();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas usuwania klienta:\n" + (ex.InnerException?.InnerException?.Message ?? ex.Message),
+                                    "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        //Obsługa kliknięcia przycisku "Odśwież"
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
-            //Ponownie pobieramy dane z bazy i wyświetlamy w DataGrid
             WczytajDane();
         }
 
-        //Metoda pomocnicza do czyszczenia pól tekstowych w oknie po wykonaniu operacji
         private void CzyscPola()
         {
             txtImie.Text = "";
             txtNazwisko.Text = "";
             txtEmail.Text = "";
             txtTelefon.Text = "";
+            txtNumerBudynku.Text = "";
+            txtKodPocztowy.Text = "";
+            txtMiejscowosc.Text = "";
         }
     }
 }

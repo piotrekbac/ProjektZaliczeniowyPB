@@ -1,18 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-// Piotr Bacior - 15 722 WSEI Kraków
 
 namespace ProjektZaliczeniowyPB
 {
@@ -21,10 +10,7 @@ namespace ProjektZaliczeniowyPB
     /// </summary>
     public partial class SamochodyWindow : Window
     {
-        // Obiekt kontekstu bazy danych
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
-
-        // Wybrany samochód do edycji
         private Samochody wybranySamochod;
 
         public SamochodyWindow()
@@ -33,20 +19,36 @@ namespace ProjektZaliczeniowyPB
             WczytajDane();
         }
 
-        /// <summary>
-        /// Wczytuje dane samochodów do DataGrid
-        /// </summary>
         private void WczytajDane()
         {
             dgSamochody.ItemsSource = db.Samochody.ToList();
         }
 
-        /// <summary>
-        /// Dodaje nowy samochód na podstawie danych z pól
-        /// </summary>
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(txtModel.Text) && int.TryParse(txtRokProdukcji.Text, out int rok))
+            if (string.IsNullOrWhiteSpace(txtModel.Text) ||
+                string.IsNullOrWhiteSpace(txtRokProdukcji.Text) ||
+                string.IsNullOrWhiteSpace(txtNumerSeryjny.Text) ||
+                string.IsNullOrWhiteSpace(txtWersja.Text))
+            {
+                MessageBox.Show("Uzupełnij wszystkie pola!", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!int.TryParse(txtRokProdukcji.Text, out int rok))
+            {
+                MessageBox.Show("Podaj poprawny rok produkcji (liczba całkowita).", "Błąd danych", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            if (txtNumerSeryjny.Text.Length < 15 || txtNumerSeryjny.Text.Length > 50)
+            {
+                MessageBox.Show("Numer seryjny musi mieć od 15 do 50 znaków (zgodnie z wymaganiami bazy danych).",
+                                "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
             {
                 var nowy = new Samochody
                 {
@@ -61,53 +63,69 @@ namespace ProjektZaliczeniowyPB
                 WczytajDane();
                 CzyscPola();
             }
+            catch (Exception ex)
+            {
+                string szczegoly = ex.InnerException?.InnerException?.Message ?? ex.Message;
+                MessageBox.Show("Błąd podczas dodawania samochodu:\n" + szczegoly, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        /// <summary>
-        /// Edytuje dane wybranego samochodu
-        /// </summary>
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
             if (dgSamochody.SelectedItem is Samochody s && int.TryParse(txtRokProdukcji.Text, out int rok))
             {
-                wybranySamochod = db.Samochody.Find(s.SamochodID);
-                wybranySamochod.Model = txtModel.Text;
-                wybranySamochod.RokProdukcji = rok;
-                wybranySamochod.NumerSeryjny = txtNumerSeryjny.Text;
-                wybranySamochod.WersjaWyposazenia = txtWersja.Text;
+                if (txtNumerSeryjny.Text.Length < 15 || txtNumerSeryjny.Text.Length > 50)
+                {
+                    MessageBox.Show("Numer seryjny musi mieć od 15 do 50 znaków.",
+                                    "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
 
-                db.SaveChanges();
-                WczytajDane();
-                CzyscPola();
+                try
+                {
+                    wybranySamochod = db.Samochody.Find(s.SamochodID);
+                    wybranySamochod.Model = txtModel.Text;
+                    wybranySamochod.RokProdukcji = rok;
+                    wybranySamochod.NumerSeryjny = txtNumerSeryjny.Text;
+                    wybranySamochod.WersjaWyposazenia = txtWersja.Text;
+
+                    db.SaveChanges();
+                    WczytajDane();
+                    CzyscPola();
+                }
+                catch (Exception ex)
+                {
+                    string szczegoly = ex.InnerException?.InnerException?.Message ?? ex.Message;
+                    MessageBox.Show("Błąd podczas edycji samochodu:\n" + szczegoly, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        /// <summary>
-        /// Usuwa wybrany samochód
-        /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
             if (dgSamochody.SelectedItem is Samochody s)
             {
-                var usun = db.Samochody.Find(s.SamochodID);
-                db.Samochody.Remove(usun);
-                db.SaveChanges();
-                WczytajDane();
-                CzyscPola();
+                try
+                {
+                    var usun = db.Samochody.Find(s.SamochodID);
+                    db.Samochody.Remove(usun);
+                    db.SaveChanges();
+                    WczytajDane();
+                    CzyscPola();
+                }
+                catch (Exception ex)
+                {
+                    string szczegoly = ex.InnerException?.InnerException?.Message ?? ex.Message;
+                    MessageBox.Show("Błąd podczas usuwania samochodu:\n" + szczegoly, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        /// <summary>
-        /// Odświeża widok danych
-        /// </summary>
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
             WczytajDane();
         }
 
-        /// <summary>
-        /// Czyści pola tekstowe
-        /// </summary>
         private void CzyscPola()
         {
             txtModel.Text = "";

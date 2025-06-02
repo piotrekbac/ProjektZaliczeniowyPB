@@ -2,16 +2,10 @@
 using System.Linq;
 using System.Windows;
 
-//Piotr Bacior - 15 722 WSEI Kraków
-
 namespace ProjektZaliczeniowyPB
 {
-    /// <summary>
-    /// Logika interakcji dla okna ZakupyWindow.xaml
-    /// </summary>
     public partial class ZakupyWindow : Window
     {
-        // Połączenie z bazą danych
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
 
         public ZakupyWindow()
@@ -21,17 +15,11 @@ namespace ProjektZaliczeniowyPB
             WczytajComboBoxy();
         }
 
-        /// <summary>
-        /// Załadowanie wszystkich zakupów do DataGrid
-        /// </summary>
         private void WczytajDane()
         {
             dgZakupy.ItemsSource = db.Zakupy.ToList();
         }
 
-        /// <summary>
-        /// Wczytuje dane do wszystkich ComboBoxów
-        /// </summary>
         private void WczytajComboBoxy()
         {
             cbKlient.ItemsSource = db.Klienci.ToList();
@@ -39,47 +27,59 @@ namespace ProjektZaliczeniowyPB
             cbSamochod.ItemsSource = db.Samochody.ToList();
         }
 
-        /// <summary>
-        /// Dodaje nowy zakup do bazy danych
-        /// </summary>
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
-            if (cbKlient.SelectedItem is Klienci klient &&
-                cbPracownik.SelectedItem is Pracownicy pracownik &&
-                cbSamochod.SelectedItem is Samochody samochod &&
-                dpDataZakupu.SelectedDate is DateTime dataZakupu)
+            var klient = cbKlient.SelectedItem as Klienci;
+            var pracownik = cbPracownik.SelectedItem as Pracownicy;
+            var samochod = cbSamochod.SelectedItem as Samochody;
+            var dataZakupu = dpDataZakupu.SelectedDate;
+
+            if (klient == null || pracownik == null || samochod == null || dataZakupu == null)
+            {
+                MessageBox.Show("Wybierz klienta, pracownika, samochód i datę zakupu.", "Brak danych", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            try
             {
                 var zakup = new Zakupy
                 {
                     KlientID = klient.KlientID,
                     PracownikID = pracownik.PracownikID,
                     SamochodID = samochod.SamochodID,
-                    DataZakupu = dataZakupu
+                    DataZakupu = dataZakupu.Value
                 };
 
                 db.Zakupy.Add(zakup);
                 db.SaveChanges();
                 WczytajDane();
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Błąd podczas dodawania zakupu:\n" + (ex.InnerException?.InnerException?.Message ?? ex.Message),
+                                "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
-        /// <summary>
-        /// Usuwa wybrany zakup z bazy
-        /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
             if (dgZakupy.SelectedItem is Zakupy z)
             {
-                var usun = db.Zakupy.Find(z.ZakupID);
-                db.Zakupy.Remove(usun);
-                db.SaveChanges();
-                WczytajDane();
+                try
+                {
+                    var usun = db.Zakupy.Find(z.ZakupID);
+                    db.Zakupy.Remove(usun);
+                    db.SaveChanges();
+                    WczytajDane();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Błąd podczas usuwania zakupu:\n" + (ex.InnerException?.InnerException?.Message ?? ex.Message),
+                                    "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
 
-        /// <summary>
-        /// Odświeża listę zakupów
-        /// </summary>
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
             WczytajDane();

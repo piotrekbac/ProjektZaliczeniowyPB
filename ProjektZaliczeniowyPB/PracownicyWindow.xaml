@@ -1,34 +1,49 @@
 ﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
-
-<!-- Okno do zarządzania pracownikami w aplikacji ProjektZaliczeniowyPB -->
 <Window x:Class="ProjektZaliczeniowyPB.PracownicyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zarządzanie Pracownikami" Height="450" Width="800">
+        Title="Zarządzanie Pracownikami" Height="500" Width="900">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- DataGrid do wyświetlania pracowników -->
         <DataGrid Name="dgPracownicy" AutoGenerateColumns="True" IsReadOnly="True" SelectionMode="Single"
                   Grid.Row="0" Margin="0,0,0,10"/>
 
-        <!-- Panel do edycji i zarządzania -->
         <StackPanel Grid.Row="1" Orientation="Vertical">
-            <!-- Dane pracownika -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-                <TextBox Name="txtImie" Width="100" Margin="5"/>
-                <TextBox Name="txtNazwisko" Width="100" Margin="5"/>
-                <TextBox Name="txtEmail" Width="150" Margin="5"/>
-                <TextBox Name="txtUlica" Width="100" Margin="5"/>
-                <TextBox Name="txtNumerBudynku" Width="70" Margin="5"/>
-                <TextBox Name="txtKodPocztowy" Width="80" Margin="5"/>
-                <TextBox Name="txtMiejscowosc" Width="100" Margin="5"/>
-            </StackPanel>
+            <WrapPanel Margin="0,0,0,10">
+                <StackPanel Margin="5" Width="100">
+                    <Label Content="Imię:"/>
+                    <TextBox Name="txtImie"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="100">
+                    <Label Content="Nazwisko:"/>
+                    <TextBox Name="txtNazwisko"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="150">
+                    <Label Content="Email:"/>
+                    <TextBox Name="txtEmail"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Ulica:"/>
+                    <TextBox Name="txtUlica"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="80">
+                    <Label Content="Nr budynku:"/>
+                    <TextBox Name="txtNumerBudynku"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="100">
+                    <Label Content="Kod pocztowy:"/>
+                    <TextBox Name="txtKodPocztowy"/>
+                </StackPanel>
+                <StackPanel Margin="5" Width="120">
+                    <Label Content="Miejscowość:"/>
+                    <TextBox Name="txtMiejscowosc"/>
+                </StackPanel>
+            </WrapPanel>
 
-            <!-- Przyciski -->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
