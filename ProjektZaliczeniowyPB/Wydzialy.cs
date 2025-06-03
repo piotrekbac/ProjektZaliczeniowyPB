@@ -7,22 +7,42 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Wydzialy - reprezentuje wydzia³ w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Wydzialy' w bazie danych.
+    /// Przechowuje informacje o wydziale oraz powi¹zanych pracownikach.
+    /// </summary>
     public partial class Wydzialy
     {
+        /// <summary>
+        /// Konstruktor domyœlny inicjalizuj¹cy kolekcjê powi¹zanych pracowników.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Wydzialy()
         {
             this.Pracownicy = new HashSet<Pracownicy>();
         }
-    
+
+        /// <summary>
+        /// Klucz g³ówny wydzia³u (ID).
+        /// </summary>
         public int WydzialID { get; set; }
+
+        /// <summary>
+        /// Nazwa wydzia³u.
+        /// </summary>
         public string Nazwa { get; set; }
-    
+
+        /// <summary>
+        /// Kolekcja pracowników przypisanych do wydzia³u.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Pracownicy> Pracownicy { get; set; }
     }

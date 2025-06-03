@@ -7,31 +7,79 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Pracownicy - reprezentuje pracownika w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Pracownicy' w bazie danych.
+    /// Przechowuje informacje o pracowniku oraz powi¹zane zakupy i wydzia³y.
+    /// </summary>
     public partial class Pracownicy
     {
+        /// <summary>
+        /// Konstruktor domyœlny inicjalizuj¹cy kolekcje powi¹zanych zakupów i wydzia³ów.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pracownicy()
         {
             this.Zakupy = new HashSet<Zakupy>();
             this.Wydzialy = new HashSet<Wydzialy>();
         }
-    
+
+        /// <summary>
+        /// Klucz g³ówny pracownika (ID).
+        /// </summary>
         public int PracownikID { get; set; }
+
+        /// <summary>
+        /// Imiê pracownika.
+        /// </summary>
         public string Imie { get; set; }
+
+        /// <summary>
+        /// Nazwisko pracownika.
+        /// </summary>
         public string Nazwisko { get; set; }
+
+        /// <summary>
+        /// Ulica zamieszkania pracownika.
+        /// </summary>
         public string Ulica { get; set; }
+
+        /// <summary>
+        /// Numer budynku zamieszkania pracownika.
+        /// </summary>
         public string NumerBudynku { get; set; }
+
+        /// <summary>
+        /// Kod pocztowy pracownika.
+        /// </summary>
         public string KodPocztowy { get; set; }
+
+        /// <summary>
+        /// Miejscowoœæ zamieszkania pracownika.
+        /// </summary>
         public string Miejscowosc { get; set; }
+
+        /// <summary>
+        /// Adres e-mail pracownika.
+        /// </summary>
         public string Email { get; set; }
-    
+
+        /// <summary>
+        /// Kolekcja zakupów powi¹zanych z pracownikiem.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupy> Zakupy { get; set; }
+
+        /// <summary>
+        /// Kolekcja wydzia³ów powi¹zanych z pracownikiem.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Wydzialy> Wydzialy { get; set; }
     }

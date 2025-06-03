@@ -7,29 +7,77 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Klienci - reprezentuje klienta w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Klienci' w bazie danych.
+    /// Przechowuje informacje o kliencie oraz powi¹zane zakupy.
+    /// </summary>
     public partial class Klienci
     {
+        /// <summary>
+        /// Konstruktor domyœlny inicjalizuj¹cy kolekcjê zakupów.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Klienci()
         {
             this.Zakupy = new HashSet<Zakupy>();
         }
-    
+
+        /// <summary>
+        /// Klucz g³ówny klienta (ID).
+        /// </summary>
         public int KlientID { get; set; }
+
+        /// <summary>
+        /// Imiê klienta.
+        /// </summary>
         public string Imie { get; set; }
+
+        /// <summary>
+        /// Nazwisko klienta.
+        /// </summary>
         public string Nazwisko { get; set; }
+
+        /// <summary>
+        /// Ulica zamieszkania klienta.
+        /// </summary>
         public string Ulica { get; set; }
+
+        /// <summary>
+        /// Numer budynku zamieszkania klienta.
+        /// </summary>
         public string NumerBudynku { get; set; }
+
+        /// <summary>
+        /// Kod pocztowy klienta.
+        /// </summary>
         public string KodPocztowy { get; set; }
+
+        /// <summary>
+        /// Miejscowoœæ zamieszkania klienta.
+        /// </summary>
         public string Miejscowosc { get; set; }
+
+        /// <summary>
+        /// Adres e-mail klienta.
+        /// </summary>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Numer telefonu klienta.
+        /// </summary>
         public string NumerTelefonu { get; set; }
-    
+
+        /// <summary>
+        /// Kolekcja zakupów powi¹zanych z klientem.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupy> Zakupy { get; set; }
     }

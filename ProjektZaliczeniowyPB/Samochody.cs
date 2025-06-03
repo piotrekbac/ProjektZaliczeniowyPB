@@ -7,25 +7,57 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Samochody - reprezentuje samochód w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Samochody' w bazie danych.
+    /// Przechowuje informacje o samochodzie oraz powi¹zane zakupy.
+    /// </summary>
     public partial class Samochody
     {
+        /// <summary>
+        /// Konstruktor domyœlny inicjalizuj¹cy kolekcjê powi¹zanych zakupów.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Samochody()
         {
             this.Zakupy = new HashSet<Zakupy>();
         }
-    
+
+        /// <summary>
+        /// Klucz g³ówny samochodu (ID).
+        /// </summary>
         public int SamochodID { get; set; }
+
+        /// <summary>
+        /// Model samochodu (np. "Opel Corsa").
+        /// </summary>
         public string Model { get; set; }
+
+        /// <summary>
+        /// Rok produkcji samochodu.
+        /// </summary>
         public int RokProdukcji { get; set; }
+
+        /// <summary>
+        /// Numer seryjny (VIN) samochodu.
+        /// </summary>
         public string NumerSeryjny { get; set; }
+
+        /// <summary>
+        /// Wersja wyposa¿enia samochodu.
+        /// </summary>
         public string WersjaWyposazenia { get; set; }
-    
+
+        /// <summary>
+        /// Kolekcja zakupów powi¹zanych z danym samochodem.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupy> Zakupy { get; set; }
     }

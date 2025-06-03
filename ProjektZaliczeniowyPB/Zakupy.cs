@@ -7,29 +7,73 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Zakupy - reprezentuje zakup samochodu w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Zakupy' w bazie danych.
+    /// Przechowuje informacje o zakupie, powi¹zania z klientem, pracownikiem, samochodem oraz polisami.
+    /// </summary>
     public partial class Zakupy
     {
+        /// <summary>
+        /// Konstruktor domyœlny inicjalizuj¹cy kolekcjê powi¹zanych polis.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Zakupy()
         {
             this.Polisy = new HashSet<Polisy>();
         }
-    
+
+        /// <summary>
+        /// Klucz g³ówny zakupu (ID).
+        /// </summary>
         public int ZakupID { get; set; }
+
+        /// <summary>
+        /// Data dokonania zakupu.
+        /// </summary>
         public System.DateTime DataZakupu { get; set; }
+
+        /// <summary>
+        /// Klucz obcy - powi¹zanie z klientem.
+        /// </summary>
         public int KlientID { get; set; }
+
+        /// <summary>
+        /// Klucz obcy - powi¹zanie z pracownikiem.
+        /// </summary>
         public int PracownikID { get; set; }
+
+        /// <summary>
+        /// Klucz obcy - powi¹zanie z samochodem.
+        /// </summary>
         public int SamochodID { get; set; }
-    
+
+        /// <summary>
+        /// Nawigacyjna w³aœciwoœæ powi¹zana z encj¹ Klienci.
+        /// </summary>
         public virtual Klienci Klienci { get; set; }
+
+        /// <summary>
+        /// Kolekcja polis powi¹zanych z tym zakupem.
+        /// </summary>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Polisy> Polisy { get; set; }
+
+        /// <summary>
+        /// Nawigacyjna w³aœciwoœæ powi¹zana z encj¹ Pracownicy.
+        /// </summary>
         public virtual Pracownicy Pracownicy { get; set; }
+
+        /// <summary>
+        /// Nawigacyjna w³aœciwoœæ powi¹zana z encj¹ Samochody.
+        /// </summary>
         public virtual Samochody Samochody { get; set; }
     }
 }

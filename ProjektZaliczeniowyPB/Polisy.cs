@@ -7,18 +7,43 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+// Piotr Bacior - 15 722 WSEI Kraków
+// Klasa modelu encji Polisy - reprezentuje polisê ubezpieczeniow¹ w bazie danych
+
 namespace ProjektZaliczeniowyPB
 {
     using System;
     using System.Collections.Generic;
-    
+
+    /// <summary>
+    /// Klasa odwzorowuj¹ca tabelê 'Polisy' w bazie danych.
+    /// Przechowuje informacje o polisie ubezpieczeniowej powi¹zanej z zakupem.
+    /// </summary>
     public partial class Polisy
     {
+        /// <summary>
+        /// Klucz g³ówny polisy (ID).
+        /// </summary>
         public int PolisaID { get; set; }
+
+        /// <summary>
+        /// Klucz obcy - powi¹zanie z zakupem (ID zakupu).
+        /// </summary>
         public int ZakupID { get; set; }
+
+        /// <summary>
+        /// Data rozpoczêcia ochrony polisy.
+        /// </summary>
         public System.DateTime DataRozpoczecia { get; set; }
+
+        /// <summary>
+        /// Data zakoñczenia ochrony polisy.
+        /// </summary>
         public System.DateTime DataZakonczenia { get; set; }
-    
+
+        /// <summary>
+        /// Nawigacyjna w³aœciwoœæ powi¹zania z encj¹ Zakupy.
+        /// </summary>
         public virtual Zakupy Zakupy { get; set; }
     }
 }
