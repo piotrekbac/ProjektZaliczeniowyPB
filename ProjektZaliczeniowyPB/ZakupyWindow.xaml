@@ -1,10 +1,9 @@
-﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
-<!-- Widok okna ZakupyWindow z obsługą edycji zakupu -->
-
-<Window x:Class="ProjektZaliczeniowyPB.ZakupyWindow"
+﻿<Window x:Class="ProjektZaliczeniowyPB.ZakupyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zarządzanie Zakupami" Height="500" Width="950">
+        Title="Zarządzanie Zakupami" Height="520" Width="970"
+        Background="#FFEAF6FF">
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -12,10 +11,12 @@
         </Grid.RowDefinitions>
 
         <!-- Tabela z listą zakupów -->
-        <DataGrid Name="dgZakupy" AutoGenerateColumns="False" IsReadOnly="True"
-                  Grid.Row="0" Margin="0,0,0,10" SelectionMode="Single"
+        <DataGrid Name="dgZakupy"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="0" Margin="0,0,0,10"
+                  SelectionMode="Single"
                   SelectionChanged="dgZakupy_SelectionChanged">
-            <!-- ← OBSŁUGA ZAZNACZENIA -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ZakupID}" Width="50"/>
                 <DataGridTextColumn Header="Klient" Binding="{Binding Klienci.Nazwisko}" Width="150"/>
@@ -27,7 +28,7 @@
         </DataGrid>
 
         <!-- Formularz dodawania/edycji zakupu -->
-        <StackPanel Grid.Row="1">
+        <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
             <WrapPanel Margin="0,0,0,10">
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Klient:"/>
@@ -47,12 +48,12 @@
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Przyciskowe akcje -->
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
-                <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
-                <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>
-                <Button Content="Odśwież" Width="100" Margin="5" Click="BtnOdswiez_Click"/>
+            <!-- Przyciski akcji -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10">
+                <Button Content="Dodaj" Width="100" Margin="10,0" Click="BtnDodaj_Click"/>
+                <Button Content="Edytuj" Width="100" Margin="10,0" Click="BtnEdytuj_Click"/>
+                <Button Content="Usuń" Width="100" Margin="10,0" Click="BtnUsun_Click"/>
+                <Button Content="Odśwież" Width="100" Margin="10,0" Click="BtnOdswiez_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

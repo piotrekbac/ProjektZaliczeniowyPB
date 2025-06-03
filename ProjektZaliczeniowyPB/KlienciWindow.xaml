@@ -9,11 +9,13 @@
 <Window x:Class="ProjektZaliczeniowyPB.KlienciWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Zarządzanie Klientami" Height="550" Width="1100">
+        Title="Zarządzanie Klientami" Height="600" Width="1100"
+        Background="#FFEAF6FF">
 
     <!-- Główny Grid podzielony na 2 wiersze: 
          - wiersz 0: Tabela klientów
          - wiersz 1: Formularz + przyciski akcji -->
+
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
@@ -33,7 +35,6 @@
                   SelectionChanged="dgKlienci_SelectionChanged"
                   Grid.Row="0" Margin="0,0,0,10">
             <DataGrid.Columns>
-                <!-- Każda kolumna odpowiada jednej właściwości klienta -->
                 <DataGridTextColumn Header="KlientID" Binding="{Binding KlientID}" Width="70"/>
                 <DataGridTextColumn Header="Imię" Binding="{Binding Imie}" Width="100"/>
                 <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}" Width="120"/>
@@ -90,7 +91,7 @@
                     <TextBox Name="txtMiejscowosc"/>
                 </StackPanel>
             </WrapPanel>
-
+            
             <!--
                 Panel z przyciskami akcji:
                 - Dodaj: Dodaje nowego klienta na podstawie danych z formularza
@@ -98,12 +99,13 @@
                 - Usuń: Usuwa zaznaczonego klienta
                 - Odśwież: Odświeża listę klientów
             -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
-                <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
-                <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>
-                <Button Content="Odśwież" Width="100" Margin="5" Click="BtnOdswiez_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10">
+                <Button Content="Dodaj" Width="100" Margin="10,0" Click="BtnDodaj_Click"/>
+                <Button Content="Edytuj" Width="100" Margin="10,0" Click="BtnEdytuj_Click"/>
+                <Button Content="Usuń" Width="100" Margin="10,0" Click="BtnUsun_Click"/>
+                <Button Content="Odśwież" Width="100" Margin="10,0" Click="BtnOdswiez_Click"/>
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Window>
