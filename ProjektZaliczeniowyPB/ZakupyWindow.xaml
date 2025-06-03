@@ -1,5 +1,5 @@
 ﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
-<!-- Zaktualizowany widok okna ZakupyWindow z dodatkowymi informacjami -->
+<!-- Widok okna ZakupyWindow z obsługą edycji zakupu -->
 
 <Window x:Class="ProjektZaliczeniowyPB.ZakupyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -13,7 +13,9 @@
 
         <!-- Tabela z listą zakupów -->
         <DataGrid Name="dgZakupy" AutoGenerateColumns="False" IsReadOnly="True"
-                  Grid.Row="0" Margin="0,0,0,10" SelectionMode="Single">
+                  Grid.Row="0" Margin="0,0,0,10" SelectionMode="Single"
+                  SelectionChanged="dgZakupy_SelectionChanged">
+            <!-- ← OBSŁUGA ZAZNACZENIA -->
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding ZakupID}" Width="50"/>
                 <DataGridTextColumn Header="Klient" Binding="{Binding Klienci.Nazwisko}" Width="150"/>
@@ -48,6 +50,8 @@
             <!-- Przyciskowe akcje -->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
+                <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
+                <!-- ← NOWY PRZYCISK -->
                 <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>
                 <Button Content="Odśwież" Width="100" Margin="5" Click="BtnOdswiez_Click"/>
             </StackPanel>

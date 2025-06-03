@@ -1,9 +1,10 @@
 ﻿// Piotr Bacior - 15 722 WSEI Kraków
-// Logika okna zarządzania pracownikami z wydziałami
+// Logika okna zarządzania pracownikami z wydziałami (pełna wersja z poprawką widoczności)
 
 using System;
 using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ProjektZaliczeniowyPB
 {
@@ -21,24 +22,27 @@ namespace ProjektZaliczeniowyPB
 
         private void WczytajDane()
         {
+            // Używamy pełnych encji zamiast anonimowych typów
             dgPracownicy.ItemsSource = db.Pracownicy.ToList();
         }
 
-        private void dgPracownicy_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void dgPracownicy_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (dgPracownicy.SelectedItem is Pracownicy p)
             {
-                wybranyPracownik = p;
+                wybranyPracownik = db.Pracownicy.Find(p.PracownikID);
 
-                txtImie.Text = p.Imie;
-                txtNazwisko.Text = p.Nazwisko;
-                txtEmail.Text = p.Email;
-                txtUlica.Text = p.Ulica;
-                txtNumerBudynku.Text = p.NumerBudynku;
-                txtKodPocztowy.Text = p.KodPocztowy;
-                txtMiejscowosc.Text = p.Miejscowosc;
-
-                cbWydzial.SelectedItem = p.Wydzialy.FirstOrDefault();
+                if (wybranyPracownik != null)
+                {
+                    txtImie.Text = p.Imie;
+                    txtNazwisko.Text = p.Nazwisko;
+                    txtEmail.Text = p.Email;
+                    txtUlica.Text = p.Ulica;
+                    txtNumerBudynku.Text = p.NumerBudynku;
+                    txtKodPocztowy.Text = p.KodPocztowy;
+                    txtMiejscowosc.Text = p.Miejscowosc;
+                    cbWydzial.SelectedItem = p.Wydzialy.FirstOrDefault();
+                }
             }
         }
 
@@ -127,6 +131,7 @@ namespace ProjektZaliczeniowyPB
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
             WczytajDane();
+            CzyscPola();
         }
 
         private void CzyscPola()

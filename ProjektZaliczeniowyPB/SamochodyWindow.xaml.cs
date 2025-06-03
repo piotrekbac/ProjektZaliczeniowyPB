@@ -27,7 +27,16 @@ namespace ProjektZaliczeniowyPB
         /// </summary>
         private void WczytajDane()
         {
-            dgSamochody.ItemsSource = db.Samochody.ToList();
+            // Wyświetlamy tylko kolumny z tabeli Samochody (bez relacji do Zakupów, które nie są tutaj potrzebne)
+            dgSamochody.ItemsSource = db.Samochody
+                .Select(s => new
+                {
+                    s.SamochodID,
+                    s.Model,
+                    s.RokProdukcji,
+                    s.NumerSeryjny,
+                    s.WersjaWyposazenia
+                }).ToList();
         }
 
         /// <summary>
@@ -35,8 +44,9 @@ namespace ProjektZaliczeniowyPB
         /// </summary>
         private void dgSamochody_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (dgSamochody.SelectedItem is Samochody s)
+            if (dgSamochody.SelectedItem != null)
             {
+                dynamic s = dgSamochody.SelectedItem;
                 txtModel.Text = s.Model;
                 txtRokProdukcji.Text = s.RokProdukcji.ToString();
                 txtNumerSeryjny.Text = s.NumerSeryjny;
@@ -97,8 +107,10 @@ namespace ProjektZaliczeniowyPB
         /// </summary>
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSamochody.SelectedItem is Samochody s && int.TryParse(txtRokProdukcji.Text, out int rok))
+            if (dgSamochody.SelectedItem != null && int.TryParse(txtRokProdukcji.Text, out int rok))
             {
+                dynamic s = dgSamochody.SelectedItem;
+
                 if (txtNumerSeryjny.Text.Length < 15 || txtNumerSeryjny.Text.Length > 50)
                 {
                     MessageBox.Show("Numer seryjny musi mieć od 15 do 50 znaków.", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -130,8 +142,10 @@ namespace ProjektZaliczeniowyPB
         /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
-            if (dgSamochody.SelectedItem is Samochody s)
+            if (dgSamochody.SelectedItem != null)
             {
+                dynamic s = dgSamochody.SelectedItem;
+
                 try
                 {
                     var usun = db.Samochody.Find(s.SamochodID);
