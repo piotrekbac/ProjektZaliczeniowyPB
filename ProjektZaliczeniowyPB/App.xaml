@@ -1,9 +1,21 @@
-﻿<Application x:Class="ProjektZaliczeniowyPB.App"
+﻿<!-- Nasz plik App.xaml odpowiada za główne ustawienia aplikacji WPF i jest on punktem wejścia 
+    wszelkiej logiki oraz zasobów naszej aplikacji. -->
+    
+<Application x:Class="ProjektZaliczeniowyPB.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:ProjektZaliczeniowyPB"
              StartupUri="MainWindow.xaml">
+    
+<!-- Teraz przejdziemy do omówienia sekcji Application.Resources, która pozwala na zdefiniowanie 
+    wspólnych zasobów, takich jak szablonów, kolorów, czy stylów, które będą dostępne globalnie, dla całej aplikacji. -->
     <Application.Resources>
+
+        <!-- Teraz omówimy plik ResourceDictionary, który odpowiada ze zewnętrzne pliki ze stylami (w naszym przypadku 
+        jest to plik Styles.xaml), które zwierają definicję wyglądu odpowiednich buttonów oraz wszelkich innych zasobów. -->
         <ResourceDictionary Source="Styles.xaml"/>
+        
     </Application.Resources>
+    
+    
 </Application>

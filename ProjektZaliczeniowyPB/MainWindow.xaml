@@ -1,4 +1,10 @@
-﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
+﻿<!-- 
+    Piotr Bacior - 15 722 WSEI Kraków
+
+    Główne okno aplikacji WPF – menu startowe.
+    Pozwala użytkownikowi wybrać jeden z modułów do zarządzania: Klientami, Samochodami, Pracownikami, Polisami lub Zakupami.
+    Wszystkie przyciski otwierają odpowiednie okno do obsługi konkretnego typu danych.
+-->
 
 <Window x:Class="ProjektZaliczeniowyPB.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
@@ -10,13 +16,48 @@
         Title="Projekt Zaliczeniowy Piotr Bacior 15 722" Height="450" Width="800"
         Background="#FFEAF6FF">
 
+    <!-- 
+        Główny kontener okna – Grid z pojedynczą komórką.
+        Wewnątrz znajduje się StackPanel wycentrowany pionowo i poziomo,
+        który układa wszystkie elementy w jednej kolumnie.
+    -->
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="Wybierz moduł: - ProjektPB 15 722" FontSize="18" FontWeight="Bold" Margin="10" HorizontalAlignment="Center"/>
+            <!-- 
+                Nagłówek okna – informacja dla użytkownika z nazwą aplikacji i numerem indeksu.
+            -->
+            <TextBlock Text="Wybierz moduł: - ProjektPB 15 722" 
+                       FontSize="18" FontWeight="Bold" Margin="10" 
+                       HorizontalAlignment="Center"/>
+
+            <!-- 
+                Przycisk do modułu zarządzania klientami.
+                Po kliknięciu uruchamia metodę BtnKlienci_Click, która otwiera okno klientów.
+            -->
             <Button Content="Zarządzaj Klientami" Width="250" Height="40" Margin="5" Click="BtnKlienci_Click"/>
+
+            <!-- 
+                Przycisk do modułu zarządzania samochodami.
+                Po kliknięciu uruchamia metodę BtnSamochody_Click, która otwiera okno samochodów.
+            -->
             <Button Content="Zarządzaj Samochodami" Width="250" Height="40" Margin="5" Click="BtnSamochody_Click"/>
+
+            <!-- 
+                Przycisk do modułu zarządzania pracownikami.
+                Po kliknięciu uruchamia metodę BtnPracownicy_Click, która otwiera okno pracowników.
+            -->
             <Button Content="Zarządzaj Pracownikami" Width="250" Height="40" Margin="5" Click="BtnPracownicy_Click"/>
+
+            <!-- 
+                Przycisk do modułu zarządzania polisami.
+                Po kliknięciu uruchamia metodę BtnPolisy_Click, która otwiera okno polis.
+            -->
             <Button Content="Zarządzaj Polisami" Width="250" Height="40" Margin="5" Click="BtnPolisy_Click"/>
+
+            <!-- 
+                Przycisk do modułu zarządzania zakupami.
+                Po kliknięciu uruchamia metodę BtnZakupy_Click, która otwiera okno zakupów.
+            -->
             <Button Content="Zarządzaj Zakupami" Width="250" Height="40" Margin="5" Click="BtnZakupy_Click"/>
         </StackPanel>
     </Grid>

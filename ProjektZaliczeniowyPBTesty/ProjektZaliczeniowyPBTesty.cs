@@ -55,6 +55,8 @@ namespace ProjektZaliczeniowyPBTesty
                     Email = "delete@example.com",
                     NumerTelefonu = "987654321"
                 };
+
+                //Dodajemy klienta do kontekstu bazy danych i zapisujemy zmiany
                 db.Klienci.Add(doUsuniecia);
                 db.SaveChanges();
 

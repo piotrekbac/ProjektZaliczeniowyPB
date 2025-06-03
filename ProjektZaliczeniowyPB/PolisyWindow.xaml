@@ -1,16 +1,34 @@
-﻿<Window x:Class="ProjektZaliczeniowyPB.PolisyWindow"
+﻿<!-- 
+    Piotr Bacior - 15 722 WSEI Kraków
+
+    Okno WPF służące do zarządzania polisami ubezpieczeniowymi.
+    Umożliwia przeglądanie, dodawanie, edytowanie, usuwanie oraz odświeżanie danych polis.
+    Górna część – tabela z polisami, dolna część – formularz do edycji/szczegółów oraz przyciski akcji.
+-->
+
+<Window x:Class="ProjektZaliczeniowyPB.PolisyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Zarządzanie Polisami" Height="520" Width="970"
         Background="#FFEAF6FF">
 
+    <!-- 
+        Główny Grid podzielony na dwie części (wiersze):
+        - wiersz 0: tabela (DataGrid) z polisami
+        - wiersz 1: formularz do edycji oraz przyciski akcji
+    -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- Tabela z polisami -->
+        <!-- 
+            DataGrid – wyświetla listę wszystkich polis w formie tabeli.
+            Nie pozwala na edycję bezpośrednio w tabeli (IsReadOnly=True).
+            Po zaznaczeniu polisy wywoływana jest metoda dgPolisy_SelectionChanged,
+            która aktualizuje dane w formularzu poniżej.
+        -->
         <DataGrid Name="dgPolisy"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
@@ -26,24 +44,44 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Formularz -->
+        <!-- 
+            Formularz do wprowadzania lub edycji danych polisy.
+            Składa się z wyboru zakupu (ComboBox), wyboru daty rozpoczęcia i zakończenia polisy (DatePicker).
+            Znajduje się w dolnej części okna (Grid.Row=1).
+        -->
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
             <WrapPanel Margin="0,0,0,10">
+                <!-- 
+                    Wybór zakupu powiązanego z polisą (po ID).
+                    ComboBox wyświetla pola ZakupID wszystkich dostępnych zakupów.
+                -->
                 <StackPanel Margin="5" Width="250">
                     <Label Content="Zakup (ID):"/>
                     <ComboBox Name="cbZakup" DisplayMemberPath="ZakupID"/>
                 </StackPanel>
+                <!-- 
+                    Wybór daty rozpoczęcia polisy.
+                -->
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Data rozpoczęcia:"/>
                     <DatePicker Name="dpRozpoczecie"/>
                 </StackPanel>
+                <!-- 
+                    Wybór daty zakończenia polisy.
+                -->
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Data zakończenia:"/>
                     <DatePicker Name="dpZakonczenie"/>
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Przyciski -->
+            <!-- 
+                Panel z przyciskami akcji:
+                - Dodaj: Dodaje nową polisę na podstawie danych z formularza
+                - Edytuj: Aktualizuje wybraną polisę
+                - Usuń: Usuwa zaznaczoną polisę
+                - Odśwież: Odświeża listę polis
+            -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10">
                 <Button Content="Dodaj" Width="100" Margin="10,0" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="10,0" Click="BtnEdytuj_Click"/>
