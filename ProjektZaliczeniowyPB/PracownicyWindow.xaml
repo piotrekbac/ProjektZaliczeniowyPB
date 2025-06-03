@@ -10,9 +10,21 @@
         </Grid.RowDefinitions>
 
         <!-- Tabela z pracownikami -->
-        <DataGrid Name="dgPracownicy" AutoGenerateColumns="True" IsReadOnly="True"
-                  SelectionMode="Single" SelectionChanged="dgPracownicy_SelectionChanged"
-                  Grid.Row="0" Margin="0,0,0,10"/>
+        <DataGrid Name="dgPracownicy" AutoGenerateColumns="False" IsReadOnly="True" SelectionMode="Single"
+                  Grid.Row="0" Margin="0,0,0,10" SelectionChanged="dgPracownicy_SelectionChanged">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding PracownikID}" Width="50"/>
+                <DataGridTextColumn Header="Imię" Binding="{Binding Imie}" Width="100"/>
+                <DataGridTextColumn Header="Nazwisko" Binding="{Binding Nazwisko}" Width="100"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="200"/>
+                <DataGridTextColumn Header="Ulica" Binding="{Binding Ulica}" Width="150"/>
+                <DataGridTextColumn Header="Nr Budynku" Binding="{Binding NumerBudynku}" Width="100"/>
+                <DataGridTextColumn Header="Kod pocztowy" Binding="{Binding KodPocztowy}" Width="100"/>
+                <DataGridTextColumn Header="Miejscowość" Binding="{Binding Miejscowosc}" Width="120"/>
+                <DataGridTextColumn Header="Liczba zakupów" Binding="{Binding Zakupy.Count}" Width="100"/>
+                <DataGridTextColumn Header="Wydziały" Binding="{Binding Wydzialy[0].Nazwa}" Width="120"/>
+            </DataGrid.Columns>
+        </DataGrid>
 
         <!-- Formularz pracownika -->
         <StackPanel Grid.Row="1" Orientation="Vertical">

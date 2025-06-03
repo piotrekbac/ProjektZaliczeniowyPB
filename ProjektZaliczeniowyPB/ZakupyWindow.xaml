@@ -1,4 +1,6 @@
 ﻿<!-- Piotr Bacior - 15 722 WSEI Kraków -->
+<!-- Zaktualizowany widok okna ZakupyWindow z dodatkowymi informacjami -->
+
 <Window x:Class="ProjektZaliczeniowyPB.ZakupyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -9,44 +11,43 @@
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- Tabela zakupów -->
+        <!-- Tabela z listą zakupów -->
         <DataGrid Name="dgZakupy" AutoGenerateColumns="False" IsReadOnly="True"
-                  SelectionChanged="dgZakupy_SelectionChanged"
-                  Grid.Row="0" Margin="0,0,0,10">
+                  Grid.Row="0" Margin="0,0,0,10" SelectionMode="Single">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ZakupID}" Width="60"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ZakupID}" Width="50"/>
                 <DataGridTextColumn Header="Klient" Binding="{Binding Klienci.Nazwisko}" Width="150"/>
                 <DataGridTextColumn Header="Pracownik" Binding="{Binding Pracownicy.Nazwisko}" Width="150"/>
                 <DataGridTextColumn Header="Samochód" Binding="{Binding Samochody.Model}" Width="150"/>
+                <DataGridTextColumn Header="Email klienta" Binding="{Binding Klienci.Email}" Width="200"/>
                 <DataGridTextColumn Header="Data zakupu" Binding="{Binding DataZakupu, StringFormat=d}" Width="120"/>
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Formularz -->
+        <!-- Formularz dodawania/edycji zakupu -->
         <StackPanel Grid.Row="1">
             <WrapPanel Margin="0,0,0,10">
-                <StackPanel Margin="5" Width="180">
+                <StackPanel Margin="5" Width="200">
                     <Label Content="Klient:"/>
                     <ComboBox Name="cbKlient" DisplayMemberPath="Nazwisko"/>
                 </StackPanel>
-                <StackPanel Margin="5" Width="180">
+                <StackPanel Margin="5" Width="200">
                     <Label Content="Pracownik:"/>
                     <ComboBox Name="cbPracownik" DisplayMemberPath="Nazwisko"/>
                 </StackPanel>
-                <StackPanel Margin="5" Width="180">
+                <StackPanel Margin="5" Width="200">
                     <Label Content="Samochód:"/>
                     <ComboBox Name="cbSamochod" DisplayMemberPath="Model"/>
                 </StackPanel>
-                <StackPanel Margin="5" Width="180">
+                <StackPanel Margin="5" Width="200">
                     <Label Content="Data zakupu:"/>
                     <DatePicker Name="dpDataZakupu"/>
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Przyciski -->
+            <!-- Przyciskowe akcje -->
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
-                <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
                 <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>
                 <Button Content="Odśwież" Width="100" Margin="5" Click="BtnOdswiez_Click"/>
             </StackPanel>
