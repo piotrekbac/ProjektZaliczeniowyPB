@@ -1,5 +1,4 @@
 ﻿// Piotr Bacior - 15 722 WSEI Kraków
-// Logika okna zarządzania pracownikami z wydziałami (pełna wersja z poprawką widoczności)
 
 using System;
 using System.Linq;

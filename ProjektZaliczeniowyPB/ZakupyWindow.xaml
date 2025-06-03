@@ -51,7 +51,6 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Dodaj" Width="100" Margin="5" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="5" Click="BtnEdytuj_Click"/>
-                <!-- ← NOWY PRZYCISK -->
                 <Button Content="Usuń" Width="100" Margin="5" Click="BtnUsun_Click"/>
                 <Button Content="Odśwież" Width="100" Margin="5" Click="BtnOdswiez_Click"/>
             </StackPanel>
