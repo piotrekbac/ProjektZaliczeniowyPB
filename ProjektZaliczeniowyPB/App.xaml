@@ -1,5 +1,7 @@
-﻿<!-- Nasz plik App.xaml odpowiada za główne ustawienia aplikacji WPF i jest on punktem wejścia 
-    wszelkiej logiki oraz zasobów naszej aplikacji. -->
+﻿<!-- Piotr Bacior 15 722 WSEI Kraków -->
+
+<!-- Nasz plik App.xaml odpowiada za główne ustawienia aplikacji WPF i jest on punktem wejścia 
+wszelkiej logiki oraz zasobów naszej aplikacji. -->
     
 <Application x:Class="ProjektZaliczeniowyPB.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"

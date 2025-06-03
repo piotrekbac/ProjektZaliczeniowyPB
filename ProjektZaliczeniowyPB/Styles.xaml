@@ -1,17 +1,35 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+﻿<!-- 
+    Piotr Bacior - 15 722 WSEI Kraków
+
+    Słownik zasobów WPF (ResourceDictionary) dla aplikacji.
+    Definiuje wspólne kolory oraz style dla kontrolek takich jak Button, TextBox i ComboBox.
+    Dzięki temu cała aplikacja ma spójny wygląd i łatwiej zarządzać zmianami wizualnymi.
+-->
+
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
-    <!-- Kolory -->
+    <!-- 
+        Sekcja kolorów – definiuje podstawowe kolory jako zasoby Color
+    -->
     <Color x:Key="PrimaryColorColor">#FF2D89EF</Color>
     <Color x:Key="SecondaryColorColor">#FFE5E5E5</Color>
     <Color x:Key="AccentColorColor">#FF68C3A3</Color>
 
-    <!-- Pędzle -->
+    <!-- 
+        Sekcja pędzli – SolidColorBrush bazujące na powyższych kolorach.
+        Używane później w stylach kontrolek do określania tła, akcentów, itp.
+    -->
     <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource PrimaryColorColor}"/>
     <SolidColorBrush x:Key="SecondaryColor" Color="{StaticResource SecondaryColorColor}"/>
     <SolidColorBrush x:Key="AccentColor" Color="{StaticResource AccentColorColor}"/>
-    
-    <!-- Style dla Button -->
+
+    <!-- 
+        Style dla kontrolki Button:
+        - Ustalona czcionka, marginesy, padding, tło, kolor tekstu oraz brak ramki.
+        - Efekt cienia dla przycisku.
+        - Własny szablon (ControlTemplate) – zaokrąglone narożniki, prezentacja zawartości wyśrodkowana.
+    -->
     <Style TargetType="Button">
         <Setter Property="Margin" Value="5"/>
         <Setter Property="Padding" Value="10,5"/>
@@ -38,7 +56,11 @@
         </Setter>
     </Style>
 
-    <!-- Style dla TextBox -->
+    <!-- 
+        Style dla kontrolki TextBox:
+        - Ustalona czcionka, marginesy, padding.
+        - Delikatna ramka i białe tło dla czytelności.
+    -->
     <Style TargetType="TextBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Margin" Value="5"/>
@@ -48,7 +70,10 @@
         <Setter Property="Background" Value="White"/>
     </Style>
 
-    <!-- Style dla ComboBox -->
+    <!-- 
+        Style dla kontrolki ComboBox:
+        - Spójny wygląd z TextBox, dzięki tym samym parametrom czcionki, marginesów i ramki.
+    -->
     <Style TargetType="ComboBox">
         <Setter Property="FontSize" Value="14"/>
         <Setter Property="Margin" Value="5"/>

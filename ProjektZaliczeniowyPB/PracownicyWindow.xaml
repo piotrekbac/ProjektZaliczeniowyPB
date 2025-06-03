@@ -1,16 +1,34 @@
-﻿<Window x:Class="ProjektZaliczeniowyPB.PracownicyWindow"
+﻿<!-- 
+    Piotr Bacior - 15 722 WSEI Kraków
+
+    Okno WPF służące do zarządzania pracownikami.
+    Umożliwia przeglądanie, dodawanie, edytowanie, usuwanie oraz odświeżanie danych pracowników.
+    Górna część – tabela z pracownikami, dolna część – formularz do edycji/szczegółów oraz przyciski akcji.
+-->
+
+<Window x:Class="ProjektZaliczeniowyPB.PracownicyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Zarządzanie Pracownikami" Height="570" Width="1070"
         Background="#FFEAF6FF">
 
+    <!-- 
+        Główny Grid podzielony na dwie części (wiersze):
+        - wiersz 0: tabela (DataGrid) z pracownikami
+        - wiersz 1: formularz do edycji oraz przyciski akcji
+    -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- Tabela z pracownikami -->
+        <!-- 
+            DataGrid – wyświetla listę wszystkich pracowników w formie tabeli.
+            Tabela nie pozwala na edycję bezpośrednio w tabeli (IsReadOnly=True).
+            Po zaznaczeniu pracownika wywoływana jest metoda dgPracownicy_SelectionChanged,
+            która aktualizuje dane w formularzu poniżej.
+        -->
         <DataGrid Name="dgPracownicy"
                   AutoGenerateColumns="False"
                   IsReadOnly="True"
@@ -29,44 +47,62 @@
             </DataGrid.Columns>
         </DataGrid>
 
-        <!-- Formularz -->
+        <!-- 
+            Formularz do wprowadzania lub edycji danych pracownika.
+            Składa się z pól tekstowych odpowiadających kolumnom z tabeli oraz wyboru wydziału (ComboBox).
+            Znajduje się w dolnej części okna (Grid.Row=1).
+        -->
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
             <WrapPanel Margin="0,0,0,10">
+                <!-- Pole: Imię pracownika -->
                 <StackPanel Margin="5" Width="120">
                     <Label Content="Imię:"/>
                     <TextBox Name="txtImie"/>
                 </StackPanel>
+                <!-- Pole: Nazwisko pracownika -->
                 <StackPanel Margin="5" Width="120">
                     <Label Content="Nazwisko:"/>
                     <TextBox Name="txtNazwisko"/>
                 </StackPanel>
+                <!-- Pole: Email pracownika -->
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Email:"/>
                     <TextBox Name="txtEmail"/>
                 </StackPanel>
+                <!-- Pole: Ulica pracownika -->
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Ulica:"/>
                     <TextBox Name="txtUlica"/>
                 </StackPanel>
+                <!-- Pole: Numer budynku -->
                 <StackPanel Margin="5" Width="100">
                     <Label Content="Nr budynku:"/>
                     <TextBox Name="txtNumerBudynku"/>
                 </StackPanel>
+                <!-- Pole: Kod pocztowy -->
                 <StackPanel Margin="5" Width="120">
                     <Label Content="Kod pocztowy:"/>
                     <TextBox Name="txtKodPocztowy"/>
                 </StackPanel>
+                <!-- Pole: Miejscowość -->
                 <StackPanel Margin="5" Width="120">
                     <Label Content="Miejscowość:"/>
                     <TextBox Name="txtMiejscowosc"/>
                 </StackPanel>
+                <!-- Pole: Wydział (ComboBox z listą wydziałów, wyświetlana nazwa wydziału) -->
                 <StackPanel Margin="5" Width="180">
                     <Label Content="Wydział:"/>
                     <ComboBox Name="cbWydzial" DisplayMemberPath="Nazwa"/>
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Przyciski akcji -->
+            <!-- 
+                Panel z przyciskami akcji:
+                - Dodaj: Dodaje nowego pracownika na podstawie danych z formularza
+                - Edytuj: Aktualizuje wybranego pracownika
+                - Usuń: Usuwa zaznaczonego pracownika
+                - Odśwież: Odświeża listę pracowników
+            -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10" RenderTransformOrigin="0.496,0.005">
                 <Button Content="Dodaj" Width="100" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Click="BtnEdytuj_Click"/>

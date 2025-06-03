@@ -1,21 +1,25 @@
-﻿using System;
+﻿// Piotr Bacior - 15 722 WSEI Kraków
+
+using System;
 using System.Linq;
 using System.Windows;
-
-// Piotr Bacior - 15 722 WSEI Kraków
 
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>
-    /// Logika interakcji dla okna ZakupyWindow.xaml
+    /// Okno WPF do zarządzania zakupami samochodów.
+    /// Pozwala na przeglądanie, dodawanie, edycję, usuwanie i odświeżanie danych zakupów.
     /// </summary>
     public partial class ZakupyWindow : Window
     {
+        // Kontekst bazy danych Entity Framework do obsługi operacji na bazie
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
+
+        // Referencja do aktualnie wybranego zakupu (dla edycji/usuwania)
         private Zakupy wybranyZakup;
 
         /// <summary>
-        /// Konstruktor - inicjalizacja komponentów i danych.
+        /// Konstruktor okna — inicjalizuje komponenty i ładuje dane zakupów oraz listy do ComboBoxów.
         /// </summary>
         public ZakupyWindow()
         {
@@ -25,7 +29,7 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Wczytuje listę zakupów z bazy.
+        /// Wczytuje wszystkie zakupy z bazy i ustawia jako źródło danych dla DataGrid.
         /// </summary>
         private void WczytajDane()
         {
@@ -33,7 +37,7 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Ładuje dane do ComboBoxów.
+        /// Wczytuje listy klientów, pracowników i samochodów z bazy do odpowiednich ComboBoxów.
         /// </summary>
         private void WczytajComboBoxy()
         {
@@ -43,7 +47,7 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Czyści wszystkie pola formularza.
+        /// Czyści wszystkie pola formularza oraz resetuje wybór zakupu.
         /// </summary>
         private void CzyscPola()
         {
@@ -55,7 +59,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Obsługuje zaznaczenie wiersza w DataGrid.
+        /// Obsługuje zaznaczenie zakupu w tabeli (DataGrid).
+        /// Ładuje dane wybranego zakupu do formularza edycji.
         /// </summary>
         private void dgZakupy_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
@@ -70,10 +75,13 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Dodaje nowy zakup.
+        /// Obsługuje kliknięcie przycisku "Dodaj".
+        /// Tworzy nowy zakup na podstawie danych z formularza i zapisuje go w bazie danych.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
+            // Walidacja danych — nie pozwala dodać niekompletnych lub błędnych danych
             if (!WalidujDane(out Klienci klient, out Pracownicy pracownik, out Samochody samochod, out DateTime data)) return;
 
             try
@@ -98,7 +106,9 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Edytuje wybrany zakup.
+        /// Obsługuje kliknięcie przycisku "Edytuj".
+        /// Aktualizuje dane wybranego zakupu na podstawie formularza i zapisuje zmiany w bazie.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
@@ -129,7 +139,9 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Usuwa wybrany zakup.
+        /// Obsługuje kliknięcie przycisku "Usuń".
+        /// Usuwa wybrany zakup z bazy danych.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
@@ -154,7 +166,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Odświeża dane i czyści formularz.
+        /// Obsługuje kliknięcie przycisku "Odśwież".
+        /// Powtórnie wczytuje dane z bazy i czyści formularz.
         /// </summary>
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
@@ -163,8 +176,14 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Waliduje formularz – sprawdza poprawność danych.
+        /// Waliduje dane formularza zakupu.
+        /// Sprawdza czy wybrano klienta, pracownika, samochód oraz datę zakupu.
         /// </summary>
+        /// <param name="klient">Zwracany wybrany klient.</param>
+        /// <param name="pracownik">Zwracany wybrany pracownik.</param>
+        /// <param name="samochod">Zwracany wybrany samochód.</param>
+        /// <param name="data">Zwracana data zakupu.</param>
+        /// <returns>True jeśli dane są poprawne, w przeciwnym razie false.</returns>
         private bool WalidujDane(out Klienci klient, out Pracownicy pracownik, out Samochody samochod, out DateTime data)
         {
             klient = cbKlient.SelectedItem as Klienci;

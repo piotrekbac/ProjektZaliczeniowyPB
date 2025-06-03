@@ -9,13 +9,20 @@ using System.Windows.Controls;
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>
-    /// Logika interakcji dla okna SamochodyWindow.xaml
+    /// Okno WPF do zarządzania samochodami.
+    /// Pozwala na przeglądanie, dodawanie, edycję, usuwanie i odświeżanie danych samochodów.
     /// </summary>
     public partial class SamochodyWindow : Window
     {
+        // Kontekst bazy danych Entity Framework do obsługi operacji na bazie
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
+
+        // Referencja do aktualnie wybranego samochodu (dla edycji/usuwania)
         private Samochody wybranySamochod;
 
+        /// <summary>
+        /// Konstruktor okna — inicjalizuje komponenty i ładuje dane samochodów do tabeli.
+        /// </summary>
         public SamochodyWindow()
         {
             InitializeComponent();
@@ -23,7 +30,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Załadowanie danych z bazy do DataGrid
+        /// Wczytuje dane samochodów z bazy i ustawia jako źródło danych dla DataGrid.
+        /// Pokazuje tylko najważniejsze kolumny (bez relacji do Zakupów).
         /// </summary>
         private void WczytajDane()
         {
@@ -40,7 +48,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Obsługa zaznaczenia wiersza w tabeli samochodów
+        /// Obsługuje zaznaczenie samochodu w tabeli (DataGrid).
+        /// Ładuje dane wybranego samochodu do formularza edycji.
         /// </summary>
         private void dgSamochody_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -55,7 +64,10 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Dodawanie nowego samochodu
+        /// Obsługuje kliknięcie przycisku "Dodaj".
+        /// Tworzy nowy samochód na podstawie danych z formularza i zapisuje go w bazie danych.
+        /// Waliduje poprawność danych (w tym długość numeru seryjnego i poprawność roku).
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
@@ -103,7 +115,10 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Edycja istniejącego samochodu
+        /// Obsługuje kliknięcie przycisku "Edytuj".
+        /// Aktualizuje dane wybranego samochodu i zapisuje zmiany w bazie.
+        /// Waliduje poprawność danych (w tym długość numeru seryjnego i poprawność roku).
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
@@ -138,7 +153,9 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Usuwanie zaznaczonego samochodu
+        /// Obsługuje kliknięcie przycisku "Usuń".
+        /// Usuwa wybrany samochód z bazy danych.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
@@ -163,7 +180,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Odświeżenie danych w tabeli
+        /// Obsługuje kliknięcie przycisku "Odśwież".
+        /// Powtórnie wczytuje dane z bazy.
         /// </summary>
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
@@ -171,7 +189,7 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Czyszczenie pól formularza
+        /// Czyści wszystkie pola formularza.
         /// </summary>
         private void CzyscPola()
         {

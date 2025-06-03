@@ -1,16 +1,35 @@
-﻿<Window x:Class="ProjektZaliczeniowyPB.SamochodyWindow"
+﻿<!-- 
+    Piotr Bacior - 15 722 WSEI Kraków
+
+    Okno WPF służące do zarządzania samochodami.
+    Umożliwia przeglądanie, dodawanie, edytowanie, usuwanie oraz odświeżanie danych samochodów.
+    W górnej części okna znajduje się tabela z samochodami, a w dolnej – formularz do edycji/szczegółów oraz przyciski akcji.
+-->
+
+<Window x:Class="ProjektZaliczeniowyPB.SamochodyWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Zarządzanie Samochodami" Height="500" Width="850"
         Background="#FFEAF6FF">
 
+    <!-- 
+        Główny Grid podzielony na dwie części (wiersze):
+        - wiersz 0: tabela (DataGrid) z samochodami
+        - wiersz 1: formularz do edycji oraz przyciski akcji
+    -->
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
 
-        <!-- Tabela z samochodami -->
+        <!-- 
+            DataGrid – wyświetla listę wszystkich samochodów w formie tabeli.
+            Tabela nie pozwala na edycję bezpośrednio w tabeli (IsReadOnly=True).
+            Po zaznaczeniu samochodu wywoływana jest metoda dgSamochody_SelectionChanged,
+            która aktualizuje dane w formularzu poniżej.
+            AutoGenerateColumns=True – kolumny generowane automatycznie na podstawie modelu.
+        -->
         <DataGrid Name="dgSamochody"
                   AutoGenerateColumns="True"
                   IsReadOnly="True"
@@ -18,30 +37,46 @@
                   SelectionChanged="dgSamochody_SelectionChanged"
                   Grid.Row="0" Margin="0,0,0,10"/>
 
-        <!-- Formularz + przyciski -->
+        <!-- 
+            Formularz do wprowadzania lub edycji danych samochodu oraz przyciski akcji.
+            Znajduje się w dolnej części okna (Grid.Row=1).
+        -->
         <StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
 
-            <!-- Formularz samochodu -->
+            <!-- 
+                Formularz samochodu – pola tekstowe odpowiadające poszczególnym właściwościom samochodu:
+                Model, Rok produkcji, Numer seryjny, Wersja wyposażenia.
+            -->
             <WrapPanel Margin="0,0,0,10">
+                <!-- Pole: Model samochodu -->
                 <StackPanel Margin="5" Width="150">
                     <Label Content="Model:"/>
                     <TextBox Name="txtModel"/>
                 </StackPanel>
+                <!-- Pole: Rok produkcji -->
                 <StackPanel Margin="5" Width="100">
                     <Label Content="Rok produkcji:"/>
                     <TextBox Name="txtRokProdukcji"/>
                 </StackPanel>
+                <!-- Pole: Numer seryjny -->
                 <StackPanel Margin="5" Width="200">
                     <Label Content="Numer seryjny:"/>
                     <TextBox Name="txtNumerSeryjny"/>
                 </StackPanel>
+                <!-- Pole: Wersja wyposażenia -->
                 <StackPanel Margin="5" Width="150">
                     <Label Content="Wersja wyposażenia:"/>
                     <TextBox Name="txtWersja"/>
                 </StackPanel>
             </WrapPanel>
 
-            <!-- Przyciski akcji -->
+            <!-- 
+                Panel z przyciskami akcji:
+                - Dodaj: Dodaje nowy samochód na podstawie danych z formularza
+                - Edytuj: Aktualizuje wybrany samochód
+                - Usuń: Usuwa zaznaczony samochód
+                - Odśwież: Odświeża listę samochodów
+            -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10">
                 <Button Content="Dodaj" Width="100" Margin="10,0" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="10,0" Click="BtnEdytuj_Click"/>

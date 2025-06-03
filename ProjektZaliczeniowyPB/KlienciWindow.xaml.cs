@@ -1,22 +1,26 @@
-﻿using System;
+﻿// Piotr Bacior - 15 722 WSEI Kraków
+
+using System;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-// Piotr Bacior - 15 722 WSEI Kraków
-
 namespace ProjektZaliczeniowyPB
 {
     /// <summary>
-    /// Logika interakcji dla okna zarządzania klientami (KlienciWindow.xaml)
+    /// Okno WPF do zarządzania klientami.
+    /// Pozwala na przeglądanie, dodawanie, edycję, usuwanie i odświeżanie danych klientów.
     /// </summary>
     public partial class KlienciWindow : Window
     {
+        // Kontekst bazy danych Entity Framework do obsługi operacji na bazie
         private ProjektZaliczeniowyBazaSamochodowEntities db = new ProjektZaliczeniowyBazaSamochodowEntities();
+
+        // Referencja do aktualnie wybranego klienta (dla edycji/usuwania)
         private Klienci wybranyKlient;
 
         /// <summary>
-        /// Konstruktor okna - inicjalizuje komponenty i ładuje dane.
+        /// Konstruktor okna — inicjalizuje komponenty i ładuje dane klientów do tabeli.
         /// </summary>
         public KlienciWindow()
         {
@@ -33,7 +37,7 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Czyści wszystkie pola formularza.
+        /// Czyści wszystkie pola formularza oraz resetuje wybór klienta.
         /// </summary>
         private void CzyscPola()
         {
@@ -49,7 +53,8 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Obsługuje zaznaczenie klienta w tabeli — ładuje dane do pól tekstowych.
+        /// Obsługuje zaznaczenie klienta w tabeli (DataGrid).
+        /// Ładuje dane wybranego klienta do formularza edycji.
         /// </summary>
         private void dgKlienci_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -68,14 +73,18 @@ namespace ProjektZaliczeniowyPB
         }
 
         /// <summary>
-        /// Obsługuje kliknięcie przycisku "Dodaj" — dodaje nowego klienta do bazy.
+        /// Obsługuje kliknięcie przycisku "Dodaj".
+        /// Tworzy nowego klienta na podstawie danych z formularza i zapisuje go w bazie danych.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnDodaj_Click(object sender, RoutedEventArgs e)
         {
+            // Walidacja danych — nie pozwala dodać niekompletnych lub błędnych danych
             if (!WalidujDane()) return;
 
             try
             {
+                // Tworzenie nowego obiektu Klienci na podstawie danych z formularza
                 var klient = new Klienci
                 {
                     Imie = txtImie.Text,
@@ -88,6 +97,7 @@ namespace ProjektZaliczeniowyPB
                     Miejscowosc = txtMiejscowosc.Text
                 };
 
+                // Dodanie klienta do bazy i zapisanie zmian
                 db.Klienci.Add(klient);
                 db.SaveChanges();
                 WczytajDane();
@@ -95,25 +105,31 @@ namespace ProjektZaliczeniowyPB
             }
             catch (Exception ex)
             {
+                // Obsługa błędów podczas dodawania nowego klienta
                 MessageBox.Show("Błąd podczas dodawania:\n" + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Obsługuje kliknięcie przycisku "Edytuj" — edytuje zaznaczonego klienta.
+        /// Obsługuje kliknięcie przycisku "Edytuj".
+        /// Aktualizuje dane wybranego klienta na podstawie formularza i zapisuje zmiany w bazie.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnEdytuj_Click(object sender, RoutedEventArgs e)
         {
+            // Sprawdzenie czy klient został wybrany
             if (wybranyKlient == null)
             {
                 MessageBox.Show("Wybierz klienta z listy.", "Brak wyboru", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            // Walidacja danych
             if (!WalidujDane()) return;
 
             try
             {
+                // Pobranie klienta z bazy po ID i aktualizacja jego danych
                 var klient = db.Klienci.Find(wybranyKlient.KlientID);
                 klient.Imie = txtImie.Text;
                 klient.Nazwisko = txtNazwisko.Text;
@@ -124,21 +140,26 @@ namespace ProjektZaliczeniowyPB
                 klient.KodPocztowy = txtKodPocztowy.Text;
                 klient.Miejscowosc = txtMiejscowosc.Text;
 
+                // Zapisanie zmian w bazie
                 db.SaveChanges();
                 WczytajDane();
                 CzyscPola();
             }
             catch (Exception ex)
             {
+                // Obsługa błędów podczas edycji klienta
                 MessageBox.Show("Błąd podczas edycji:\n" + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Obsługuje kliknięcie przycisku "Usuń" — usuwa zaznaczonego klienta z bazy.
+        /// Obsługuje kliknięcie przycisku "Usuń".
+        /// Usuwa wybranego klienta z bazy danych.
+        /// Po sukcesie odświeża tabelę i czyści formularz.
         /// </summary>
         private void BtnUsun_Click(object sender, RoutedEventArgs e)
         {
+            // Sprawdzenie czy klient został wybrany
             if (wybranyKlient == null)
             {
                 MessageBox.Show("Wybierz klienta do usunięcia.", "Brak wyboru", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -147,6 +168,7 @@ namespace ProjektZaliczeniowyPB
 
             try
             {
+                // Wyszukanie klienta w bazie po ID i usunięcie go
                 var klient = db.Klienci.Find(wybranyKlient.KlientID);
                 db.Klienci.Remove(klient);
                 db.SaveChanges();
@@ -155,12 +177,14 @@ namespace ProjektZaliczeniowyPB
             }
             catch (Exception ex)
             {
+                // Obsługa błędów podczas usuwania klienta
                 MessageBox.Show("Błąd podczas usuwania:\n" + ex.Message, "Błąd", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         /// <summary>
-        /// Obsługuje kliknięcie przycisku "Odśwież" — ponownie wczytuje dane z bazy.
+        /// Obsługuje kliknięcie przycisku "Odśwież".
+        /// Powtórnie wczytuje dane z bazy i czyści formularz.
         /// </summary>
         private void BtnOdswiez_Click(object sender, RoutedEventArgs e)
         {
@@ -170,10 +194,12 @@ namespace ProjektZaliczeniowyPB
 
         /// <summary>
         /// Waliduje wymagane pola formularza klienta.
+        /// Sprawdza, czy wymagane pola nie są puste oraz czy telefon ma 9 cyfr i zawiera tylko cyfry.
         /// </summary>
         /// <returns>True jeśli dane są poprawne, w przeciwnym razie false.</returns>
         private bool WalidujDane()
         {
+            // Sprawdzenie czy wymagane pola (imię, nazwisko, email, telefon) są wypełnione
             if (string.IsNullOrWhiteSpace(txtImie.Text) ||
                 string.IsNullOrWhiteSpace(txtNazwisko.Text) ||
                 string.IsNullOrWhiteSpace(txtEmail.Text) ||
@@ -183,6 +209,7 @@ namespace ProjektZaliczeniowyPB
                 return false;
             }
 
+            // Sprawdzenie formatu numeru telefonu (dokładnie 9 cyfr)
             if (txtTelefon.Text.Length != 9 || !txtTelefon.Text.All(char.IsDigit))
             {
                 MessageBox.Show("Telefon musi mieć 9 cyfr.", "Błąd formatu", MessageBoxButton.OK, MessageBoxImage.Warning);
