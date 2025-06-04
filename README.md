@@ -82,6 +82,9 @@ W projekcie znajduje się osobny projekt testowy, który zawiera:
 - Prowadzący: Krzysztof Molenda
 - Przedmiot: Programowanie obietkowe - Lab.
 
+### Diagram bazy danych ### 
+
+![image](https://github.com/user-attachments/assets/47a3484c-e854-4083-a120-3e3173f16944)
 
 
 
