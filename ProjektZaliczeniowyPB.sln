@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektZaliczeniowyPB", "Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProjektZaliczeniowyPBTesty", "ProjektZaliczeniowyPBTesty\ProjektZaliczeniowyPBTesty.csproj", "{01E2B253-0C03-4E14-8E76-23475B2CE6FA}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "InstalatorAplikacjiPB", "..\..\InstalatorAplikacjiPB\InstalatorAplikacjiPB\InstalatorAplikacjiPB.vdproj", "{518049CC-E8CD-D9DE-9E46-77A658409C07}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PBInstalator", "PBInstalator\PBInstalator.vdproj", "{9D9979B0-9920-7460-4E72-3710AAE293D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,8 +23,8 @@ Global
 		{01E2B253-0C03-4E14-8E76-23475B2CE6FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01E2B253-0C03-4E14-8E76-23475B2CE6FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01E2B253-0C03-4E14-8E76-23475B2CE6FA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{518049CC-E8CD-D9DE-9E46-77A658409C07}.Debug|Any CPU.ActiveCfg = Debug
-		{518049CC-E8CD-D9DE-9E46-77A658409C07}.Release|Any CPU.ActiveCfg = Release
+		{9D9979B0-9920-7460-4E72-3710AAE293D4}.Debug|Any CPU.ActiveCfg = Debug
+		{9D9979B0-9920-7460-4E72-3710AAE293D4}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
