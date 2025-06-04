@@ -75,43 +75,43 @@ W projekcie znajduje się osobny projekt testowy, który zawiera:
 
 ### FAQ – Najczęściej zadawane pytania ### 
 
-- Jak uruchomić aplikację bez Visual Studio?
+Jak uruchomić aplikację bez Visual Studio?
 - Odpowiedź: Skorzystaj z instalatora InstalatorAplikacjiPB.msi, znajdującego się w katalogu InstalatorAplikacjiPB\InstalatorAplikacjiPB\Debug.
   Po zainstalowaniu aplikacja będzie dostępna w menu Start lub na pulpicie (jeśli dodano skrót).
 
-- Czy aplikacja wymaga zewnętrznej instalacji SQL Server?
+Czy aplikacja wymaga zewnętrznej instalacji SQL Server?
 - Odpowiedź: Nie, używana jest wersja LocalDB, która instaluje się automatycznie z Visual Studio. Użytkownicy końcowi muszą mieć zainstalowany
   .NET Framework 4.7.2+ i LocalDB (jeśli nie publikowano aplikacji jako self-contained).
 
-- Czy aplikacja działa bez połączenia z internetem?
+Czy aplikacja działa bez połączenia z internetem?
 - Odpowiedź: Tak. Aplikacja działa lokalnie, bez dostępu do internetu.
   Wszelkie operacje wykonywane są na lokalnej bazie danych.
 
-- Gdzie znajdują się dane po instalacji?
+Gdzie znajdują się dane po instalacji?
 - Odpowiedź: Dane są przechowywane w bazie danych LocalDB (plik .mdf), której lokalizacja jest skonfigurowana w pliku App.config.
 
-- Jakie dane muszą być wypełnione, aby dodać nowy rekord?
+Jakie dane muszą być wypełnione, aby dodać nowy rekord?
 - Odpowiedź: Wszystkie wymagane pola muszą być wypełnione. Puste pola powodują zatrzymanie operacji i wyświetlenie komunikatu.
 
-- Nie działa przycisk „Edytuj” – dlaczego?
+Nie działa przycisk „Edytuj” – dlaczego?
 - Odpowiedź: Najczęściej przyczyną jest brak zaznaczonego rekordu w tabeli. Przed edycją zaznacz wiersz, który chcesz edytować.
 
--  Czy mogę usunąć rekord powiązany z innymi danymi?
+Czy mogę usunąć rekord powiązany z innymi danymi?
 -  Odpowiedź: Niektóre rekordy są chronione relacjami (np. nie można usunąć pracownika przypisanego do zakupu). Należy najpierw usunąć zależne dane.
 
-- Czy można dodawać wydziały z poziomu aplikacji?
+Czy można dodawać wydziały z poziomu aplikacji?
 - Odpowiedź: Nie, wydziały powinny być dodawane bezpośrednio do bazy danych lub rozszerzyć aplikację o dedykowane okno.
 
-- Czy aplikacja obsługuje więcej niż jednego użytkownika?
+Czy aplikacja obsługuje więcej niż jednego użytkownika?
 - Odpowiedź: Nie, aplikacja nie posiada systemu logowania ani wielosesyjnego trybu pracy. Przeznaczona jest do pracy lokalnej, jednego użytkownika.
 
-- Czy mogę rozbudować projekt o nowe tabele?
+Czy mogę rozbudować projekt o nowe tabele?
 - Odpowiedź: Tak. Należy zmodyfikować model danych (EDMX lub Code First), dodać widoki w WPF oraz zaktualizować warstwę logiki.
 
-- Czy można uruchomić aplikację na innym systemie niż Windows?
+Czy można uruchomić aplikację na innym systemie niż Windows?
 - Odpowiedź: Nie. Aplikacja WPF działa wyłącznie na systemie Windows. Alternatywą byłoby przeniesienie logiki do .NET MAUI lub Blazor.
 
-- Czy mogę przygotować backup danych?
+Czy mogę przygotować backup danych?
 - Odpowiedź: Tak. Można skopiować plik .mdf bazy danych lub napisać prostą funkcję eksportującą dane do .csv / .xml.
 
 
