@@ -26,6 +26,8 @@ namespace ProjektZaliczeniowyPB
         {
             InitializeComponent();
             WczytajDane();
+
+            //Ładowanie listy wydziałów do ComboBoxa
             cbWydzial.ItemsSource = db.Wydzialy.ToList();
         }
 

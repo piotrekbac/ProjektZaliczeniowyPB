@@ -17,7 +17,7 @@
     <Color x:Key="AccentColorColor">#FF68C3A3</Color>
 
     <!-- 
-        Sekcja pędzli – SolidColorBrush bazujące na powyższych kolorach.
+        Sekcja pędzli – SolidColorBrush bazujące na powyższych kolorach
         Używane później w stylach kontrolek do określania tła, akcentów, itp.
     -->
     <SolidColorBrush x:Key="PrimaryColor" Color="{StaticResource PrimaryColorColor}"/>
@@ -26,9 +26,9 @@
 
     <!-- 
         Style dla kontrolki Button:
-        - Ustalona czcionka, marginesy, padding, tło, kolor tekstu oraz brak ramki.
+        - Ustalona czcionka, marginesy, padding, tło, kolor tekstu oraz brak ramki
         - Efekt cienia dla przycisku.
-        - Własny szablon (ControlTemplate) – zaokrąglone narożniki, prezentacja zawartości wyśrodkowana.
+        - Własny szablon (ControlTemplate) – zaokrąglone narożniki, prezentacja zawartości wyśrodkowana
     -->
     <Style TargetType="Button">
         <Setter Property="Margin" Value="5"/>

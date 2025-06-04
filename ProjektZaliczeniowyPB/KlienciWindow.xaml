@@ -99,7 +99,7 @@
                 - Usuń: Usuwa zaznaczonego klienta
                 - Odśwież: Odświeża listę klientów
             -->
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,0,0,10">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Height="45" Margin="0,20,0,10">
                 <Button Content="Dodaj" Width="100" Margin="10,0" Click="BtnDodaj_Click"/>
                 <Button Content="Edytuj" Width="100" Margin="10,0" Click="BtnEdytuj_Click"/>
                 <Button Content="Usuń" Width="100" Margin="10,0" Click="BtnUsun_Click"/>

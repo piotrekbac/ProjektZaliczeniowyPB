@@ -24,7 +24,7 @@
     <Grid>
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <!-- 
-                Nagłówek okna – informacja dla użytkownika z nazwą aplikacji i numerem indeksu.
+                Nagłówek okna – informacja dla użytkownika ze skróconą nazwą aplikacji i numerem indeksu.
             -->
             <TextBlock Text="Wybierz moduł: - ProjektPB 15 722" 
                        FontSize="18" FontWeight="Bold" Margin="10" 
